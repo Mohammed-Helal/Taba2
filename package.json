@@ -1,9 +1,9 @@
 {
+  "homepage": "https://Mohammed-Helal.github.io/Tapa2",
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Mohammed-Helal.github.io/Tapa2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
