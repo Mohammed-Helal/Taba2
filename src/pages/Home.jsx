@@ -1,5 +1,5 @@
 import React from 'react'
-import Top_Nav from '@/components/Navbar/Top_Nav';
+import Top_Nav from '@/components/Top_Nav';
 import Logo from '/logo.svg'
 import Mask from '/Mask.svg'
 import Layer from '/Layer_1.png'
