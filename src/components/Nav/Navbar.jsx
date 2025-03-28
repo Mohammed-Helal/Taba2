@@ -10,7 +10,7 @@ import { MdShare } from "react-icons/md";
 function Navbar() {
   return (
     <>
-      <nav className = "bg-gradient-to-b from-secondary to-primary h-screen w-[65px] p-4 absolute right-0">
+      <nav className = "bg-gradient-to-b from-secondary to-primary h-screen w-[65px] p-4 absolute right-0 z-50">
         <div className='absolute top-0 w-full left-0 h-full bg-white opacity-20'></div>
         <ul className='flex flex-col justify-items-center space-y-[60px]'>
           <li>

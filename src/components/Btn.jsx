@@ -2,7 +2,7 @@ import React from 'react'
 
 const Btn = () => {
   return (
-    <div>Btn</div>
+    <button className='bg-secondary'>تصفح لوصفات</button>
   )
 }
 

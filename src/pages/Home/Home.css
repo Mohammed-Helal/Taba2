@@ -1,0 +1,366 @@
+/* ---------------------------start global roles--------------------------- */
+* {
+    --webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100vh;
+    position: relative;
+    font-family: "Cairo", sans-serif;
+    background: linear-gradient(to bottom, #00338D, #B1B2FF);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Small */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+/* ---------------------------end global roles--------------------------- */
+
+
+/* start header */
+header {
+    display: flex;
+    align-items: center;
+}
+
+header .container {
+    width: 100%;
+}
+
+
+header .container nav ul {
+    font-size: smaller;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header .container nav ul li:nth-child(2) {
+    display: none
+}
+
+@media (max-width: 767px) {
+
+
+    header .container nav ul {
+        font-size: x-small;
+    }
+}
+
+/* end header */
+/* start logo & info */
+.grid .logo-and-info {
+    position: relative;
+}
+
+.grid .main-picture {
+    display: none;
+}
+
+.grid .logo-and-info .container {
+    position: absolute;
+    top: 50px;
+    margin-right: 40px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: inherit;
+}
+
+.grid .logo-and-info .logo {
+    width: fit-content;
+}
+
+.grid .logo-and-info .logo img {
+    width: 320px;
+    height: auto;
+}
+
+.search-container {
+    margin-top: 20px;
+    width: 290px;
+    display: flex;
+    justify-content: space-between;
+    top: 60%;
+    position: relative;
+}
+
+.search-container:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: #00338D;
+}
+
+.search-container input {
+    direction: rtl;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    background: transparent;
+    background-color: rgb(169 172 250 / 80%);
+    border: 2px solid rgb(4 54 144 / 65%);
+    border-radius: 40px;
+}
+
+.search-container button {
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+    background-color: #3257ad;
+    width: 100px;
+    border-radius: 40px;
+}
+
+.search-container button:hover {
+    transform: scale(1.1);
+}
+
+.grid .logo-and-info .info p {
+    font-family: "Cairo", sans-serif;
+    font-size: 12px;
+    text-align: right;
+    color: white;
+    width: fit-content;
+    padding: 20px;
+    line-height: 2;
+}
+
+
+.grid .logo-and-info .container a.button {
+    position: absolute;
+    background-color: #00338D;
+    border-radius: 36px;
+    padding: 13px 30px;
+    font-size: 12px;
+    bottom: 15%;
+    left: -300px;
+}
+
+.grid .logo-and-info .container a.button:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 991px) {
+    header .container {
+        padding: 0 60px;
+    }
+
+    .grid .main-picture {
+        display: initial;
+        padding: 10px 30px 30px;
+    }
+
+    .grid .main-picture img {
+        width: 100%;
+        border-radius: 40px;
+        opacity: 70%;
+        filter: blur(0.8px);
+    }
+
+    .grid .logo-and-info .logo {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .grid .logo-and-info .logo img {
+        width: 9%;
+        margin: 15px 45px 0 0;
+    }
+
+    .search-container {
+        position: absolute;
+        top: 55%;
+    }
+
+    .grid .logo-and-info .info p {
+        margin: 0;
+        text-align: center;
+    }
+
+    header .container nav ul {
+        margin-top: 25px;
+    }
+
+    .grid .logo-and-info .container a.button {
+        position: initial;
+        margin-top: 20px;
+    }
+
+    .grid .logo-and-info .container {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 55px 0;
+        align-items: center;
+    }
+
+}
+
+@media (max-width: 767px) {
+    header .container {
+        padding: 0 20px;
+    }
+
+    header .container nav ul li:nth-child(1) {
+        display: none
+    }
+
+    header .container nav ul li:nth-child(2) {
+        display: initial
+    }
+
+    header .container nav ul {
+        margin-top: 25px;
+    }
+
+    .grid .main-picture {
+        display: none
+    }
+
+    .grid .logo-and-info .logo img {
+        width: 100%;
+        padding: 0 15%;
+        margin: 25% 0 0;
+    }
+
+    .search-container {
+        display: none;
+    }
+
+    .grid .logo-and-info .container a.button {
+        position: initial;
+        margin-top: 20px;
+    }
+
+    .grid .logo-and-info .container {
+        position: relative;
+        right: 0;
+        margin: 30px 0;
+        align-items: center;
+    }
+
+    .grid .logo-and-info .info p {
+        text-align: center;
+    }
+
+}
+
+/* end logo & info */
+/* start left side images */
+.left-side {
+    position: relative;
+    width: 70%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left-side .container {
+    position: absolute;
+    width: 100%;
+    height: inherit;
+}
+
+.left-side .container .waves {
+    position: absolute;
+    top: -365px;
+    left: 170px;
+    z-index: -1;
+}
+
+.left-side .container .waves img {
+    width: 660px;
+    height: auto;
+}
+
+.left-side .container .food {
+    transform: rotate(20deg);
+    position: absolute;
+    top: -210px;
+    left: -620px;
+    opacity: 50%;
+    z-index: -2;
+}
+
+.left-side .container .food img {
+    width: 1100px;
+    height: auto;
+}
+
+.left-side .container .clouds {
+    position: absolute;
+    bottom: -3px;
+    z-index: 0;
+}
+
+.left-side .container .clouds img {
+    width: 593px;
+    height: auto;
+}
+
+.left-side .container .delivary {
+    position: absolute;
+    left: 200px;
+    bottom: -3px;
+    z-index: -1;
+}
+
+.left-side .container .delivary img {
+    width: 460px;
+    height: auto;
+}
+
+@media (max-width: 991px) {
+
+    .left-side .container {
+        display: none;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .left-side .container {
+        display: none;
+    }
+
+}
