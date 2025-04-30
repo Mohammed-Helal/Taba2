@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'cairo';
-  src: url('/Fonts/Cairo.ttf') format('truetype');
+  src: url('/fonts/Cairo.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
