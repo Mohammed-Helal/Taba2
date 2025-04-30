@@ -1,6 +1,6 @@
 // Store/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser, getCurrentUser } from "@/API/authApi";
+import { registerUser, getCurrentUser} from "@/API/authApi";
 
 // Async thunk for logging in
 export const login = createAsyncThunk(
@@ -8,6 +8,17 @@ export const login = createAsyncThunk(
   async ({ username, password }) => {
     console.log("in slice");
     const user = await loginUser(username, password);
+    console.log("slice end");
+    return user;
+  }
+);
+
+// Async thunk for Signup in
+export const register = createAsyncThunk(
+  "/auth/register",
+  async (FormData) => {
+    console.log("in slice");
+    const user = await registerUser(FormData);
     console.log("slice end");
     return user;
   }
@@ -33,6 +44,17 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      })
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })

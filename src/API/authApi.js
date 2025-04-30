@@ -1,20 +1,32 @@
 import axiosInstance from "./axiosInstance";
 import Cookies from "js-cookie";
 
-export const loginUser = async (username, password) => {
+export const registerUser = async ({name, phone_number, password, password_confirmation}) => {
   try {
-    const response = await axiosInstance.post("/user/login", {
-      username,
-      password,
-      expiresInMins: 30,
+    const res = await fetch("/api/register", {
+      method: "post",
+      body: JSON.stringify({
+        name,
+        phone_number,
+        password,
+        password_confirmation,
+      }),
     });
-    Cookies.set("token", response.data.token, { expires: 0.5 });
-    return response.data;
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Registration failed");
+    }
+
+    Cookies.set("token", data.user.token, { expires: 0.5 });
+    return data.user;
   } catch (error) {
-    console.error("Login error:", error.message); 
-    throw new Error(`Login failed: ${error.message}`);
+    console.error("Register error:", error.message); 
+    throw new Error(`Register failed: ${error.message}`);
   }
 };
+
 
 export const getCurrentUser = async (token) => {
   try {

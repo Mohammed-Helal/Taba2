@@ -19,13 +19,19 @@ function Header() {
 
   useEffect(() => {
     if (location.pathname === "/Taba2") {
-      linkRefs.recipes.current.focus();
+      linkRefs.recipes.current.classList.add(
+        "text-black"
+      );
+    }else{
+      linkRefs.recipes.current.classList.add(
+        "text-[#B0B0B0]"
+      )
     }
   }, []);
 
   return (
     <>
-        <nav className='grid grid-cols-2 lg:grid-cols-8 px-2 md:px-[70px] lg:px-[100px] py-[22px]'>
+        <nav className='whitespace-nowrap grid grid-cols-2 lg:flex lg:justify-between px-2 md:px-[70px] lg:px-[100px] py-[22px]'>
             <div className='flex space-x-[16px]  order-1 lg:col-span-3'>
                 <button 
                 className='rounded-full bg-primary text-white px-[16px] py-[8px] text-[12px]/[14px] font-[600]'
@@ -41,7 +47,7 @@ function Header() {
                 </button>
             </div>
 
-            <div className='flex gap-[50px] justify-center items-center order-3 lg:order-2 w-full col-span-2 lg:col-span-3 mt-[16px] lg:mt-0'>
+            <div className='flex gap-[50px] justify-center items-center order-3 lg:order-2 w-full col-span-2 lg:col-span-3 mt-[16px] lg:mt-0 whitespace-nowrap'>
                 <ul className='flex justify-center items-center text-[13px] gap-[30px] pt-[10px] text-[#B0B0B0] font-[700] w-full'>
                   <li>
                     <Link ref={linkRefs.contact} to="#" className='focus:text-black hover:text-black focus:outline-none'>تواصل معنا</Link>
@@ -61,7 +67,7 @@ function Header() {
                 </ul>
             </div>
 
-            <div className='flex justify-center items-center gap-3 md:gap-[50px] order-2 lg:order-3 lg:col-span-2'>
+            <div className='flex justify-center items-center gap-3 lg:gap-[50px] order-2 lg:order-3 lg:col-span-2'>
               <div className='relative'>
                 <IoIosSearch
                 dir="rtl" 
