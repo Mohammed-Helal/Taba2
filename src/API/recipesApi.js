@@ -11,7 +11,7 @@ export const getAllRecipes = async () => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json(); // 👍 جديد
+      const errorData = await response.json(); 
       throw new Error(errorData.message || "Fetching recipes failed");
     }
 

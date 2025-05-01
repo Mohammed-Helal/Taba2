@@ -1,13 +1,13 @@
 // Store/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { registerUser, getCurrentUser} from "@/API/authApi";
+import { registerUser, getCurrentUser, loginUser} from "@/API/authApi";
 
 // Async thunk for logging in
 export const login = createAsyncThunk(
   "/auth/login",
-  async ({ username, password }) => {
+  async (FormData) => {
     console.log("in slice");
-    const user = await loginUser(username, password);
+    const user = await loginUser(FormData);
     console.log("slice end");
     return user;
   }

@@ -1,6 +1,6 @@
 import React from 'react'
-import Img_Sec from '../components/Singup/Img_Sec';
-import Signup_Sec from '../components/Singup/Signup_Sec';
+import Img_Sec from '../components/Auth/Img_Sec';
+import Signup_Sec from '../components/Auth/Signup_Sec';
 import Signup_bg from "@/assets/images/Signup_bg.png"
 
 function Signup() {

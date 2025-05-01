@@ -5,7 +5,7 @@ import { CiUser, CiLock } from "react-icons/ci";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { register } from "@/Store/Slices/authSlice"; // تأكد إن اسم الدالة register مش register
+import { register } from "@/Store/Slices/authSlice";
 
 function Signup_Sec() {
     const dispatch = useDispatch();
@@ -23,7 +23,6 @@ function Signup_Sec() {
 
     const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(FormData)
 
     if (!checked) {
         alert("يجب الموافقة على الشروط والأحكام أولاً.");
@@ -33,11 +32,11 @@ function Signup_Sec() {
     setIsLoading(true);
     try {
         const resultAction = await dispatch(
-        register(FormData)
+            register(FormData)
         );
 
         if (register.fulfilled.match(resultAction)) {
-        navigate("/Taba2/login");
+            navigate("/Taba2/login");
         }
     } catch (err) {
         console.log(err);
@@ -47,7 +46,7 @@ function Signup_Sec() {
     };
 
     return (
-        <div className="lg:w-[38%] flex flex-col justify-center items-end bg-white px-[64px] py-[104px] rounded-[40px] gap-[32px] h-full">
+        <div className="lg:w-[38%] w-full flex flex-col justify-center items-center md:items-end bg-white lg:px-[64px] lg:py-[104px] px-10 py-30 rounded-[40px] h-full">
             <div>
                 <h3 className="text-[48px]/[51px] font-[600]">انشاء حساب</h3>
                 <p className="text-[14px]/[51px]">
