@@ -11,10 +11,10 @@ const MotionShare = motion(Share)
 const MotionLikeDef = motion(LikeDef)
 const MotionLikeActive = motion(LikeActive)
 
-function Home_Card({ product }) {
+function Home_Card({ recipe }) {
   const [liked, setLiked] = useState(false)
   const handleLike = () => setLiked(prev => !prev)
-  const handleShare = () => console.log('Share clicked', product)
+  const handleShare = () => console.log('Share clicked', recipe)
   
   return (
     <div className="bg-[#F7F7F7] rounded-[15px] relative">
@@ -60,7 +60,7 @@ function Home_Card({ product }) {
           </div>
         </div>
         <div>
-          <img src={product.thumbnail} alt="" className="rounded-[30px]" />
+          <img src={recipe.img_url} alt={recipe.name} className="rounded-[30px]" />
         </div>
         {/* edited line 57: changed to motion.button and added whileHover color change */}
         <motion.button

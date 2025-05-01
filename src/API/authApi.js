@@ -5,6 +5,9 @@ export const registerUser = async ({name, phone_number, password, password_confi
   try {
     const res = await fetch("/api/register", {
       method: "post",
+      headers:{
+          Accept: "application/json"
+      },
       body: JSON.stringify({
         name,
         phone_number,

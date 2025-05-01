@@ -1,17 +1,17 @@
 // Store/productsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  getAllProducts,
   getAllCats,
   getSingleProduct,
-} from "@/API/productsApi";
+  getAllRecipes
+} from "@/API/recipesApi";
 
 // Async thunk to fetch all products
-export const fetchAllProducts = createAsyncThunk(
-  "products/fetchAllProducts",
+export const fetchAllRecipes = createAsyncThunk(
+  "Recipes/fetchAllRecipes",
   async () => {
-    const products = await getAllProducts();
-    return products.products;
+    const recipes = await getAllRecipes();
+    return recipes;
   }
 );
 
@@ -33,20 +33,20 @@ export const fetchSingleProduct = createAsyncThunk(
   }
 );
 
-const productsSlice = createSlice({
-  name: "products",
+const recipesSlice = createSlice({
+  name: "recipes",
   initialState: {
     items: [],
     categories: [],
-    selectedProduct: [],
+    SelectedRecipes: [],
     selectedItems: [],
     selectedCat: "All Products",
     isLoading: false,
     error: null,
   },
   reducers: {
-    setSelectedProduct: (state, action) => {
-      state.selectedProduct = action.payload;
+    setSelectedRecipes: (state, action) => {
+      state.SelectedRecipes = action.payload;
     },
     setSelectedItems: (state, action) => {
       state.selectedItems = action.payload;
@@ -57,15 +57,15 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllProducts.pending, (state) => {
+      .addCase(fetchAllRecipes.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchAllProducts.fulfilled, (state, action) => {
+      .addCase(fetchAllRecipes.fulfilled, (state, action) => {
         state.items = action.payload;
         state.selectedItems = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchAllProducts.rejected, (state, action) => {
+      .addCase(fetchAllRecipes.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
       })
@@ -84,7 +84,7 @@ const productsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchSingleProduct.fulfilled, (state, action) => {
-        state.selectedProduct = action.payload;
+        state.SelectedRecipes = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchSingleProduct.rejected, (state, action) => {
@@ -94,6 +94,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setSelectedProduct, setSelectedItems, setSelectedCat } =
-  productsSlice.actions;
-export default productsSlice.reducer;
+export const { setSelectedRecipes, setSelectedItems, setSelectedCat } =
+  recipesSlice.actions;
+export default recipesSlice.reducer;

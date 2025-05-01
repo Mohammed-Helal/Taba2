@@ -1,15 +1,29 @@
 import axiosInstance from "./axiosInstance";
 
 // Get all products with an optional limit
-export const getAllProducts = async () => {
+export const getAllRecipes = async () => {
   try {
-    const response = await axiosInstance.get(`/products?limit=0`);
-    return response.data;
+    const response = await fetch('http://127.0.0.1:8000/api/recipes', {
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json(); // 👍 جديد
+      throw new Error(errorData.message || "Fetching recipes failed");
+    }
+
+    const data = await response.json();
+    return data.data;
+
   } catch (error) {
-    console.log(error.respnse)
-    throw new Error(error.response ? error.response.data : error.message);
+    console.error("Fetch error:", error.message);
+    throw new Error(error.message);
   }
 };
+
 
 // Get all product categories
 export const getAllCats = async () => {

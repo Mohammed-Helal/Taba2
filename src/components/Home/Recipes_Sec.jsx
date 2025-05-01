@@ -1,15 +1,15 @@
 import React from 'react'
-import Home_Card from '../Recipe/Home_Card'
+import Home_Card from '@/components/Recipe/Home_Card'
 import { useSelector } from "react-redux";
 
 function Recipes_Sec() {
-  const { items: products } = useSelector((state) => state.products);
+  const { items: recipes } = useSelector((state) => state.recipes);
 
   return (
     <>
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[24px] px-[100px] mt-16'>
-          {products.slice(90, 100).map((product) => (
-            <Home_Card key={product.id} product={product} />
+          {recipes.slice(0, 6).map((recipe) => (
+            <Home_Card key={recipe.id} recipe= {recipe} />
           ))}
         </div>
     </>
