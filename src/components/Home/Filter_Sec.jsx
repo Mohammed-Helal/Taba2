@@ -22,7 +22,7 @@ export default function Filter_Sec() {
   const meals = ['تحلية', 'عشاء', 'غداء', 'افطار', 'جميع الوصفات'];
 
   return (
-    <div className="px-[100px] mt-[32px]" ref={wrapperRef}>
+    <div className="px-[10px] lg:px-[100px] mt-[32px]" ref={wrapperRef}>
       {/* Header */}
       <div className="flex text-[20px]/[62px] font-semibold gap-2 justify-center items-center">
         <span>!! اليوم</span>
@@ -121,7 +121,7 @@ export default function Filter_Sec() {
             <span>{selectedMeal}</span>
           </button>
           {openDropdown === 'meal' && (
-            <div className=" absolute mt-1 w-full bg-white border rounded shadow z-40">
+            <div className=" absolute mt-1 w-full bg-white border rounded shadow z-10">
               {meals.map((m) => (
                 <div
                   key={m}
