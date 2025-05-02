@@ -2,10 +2,29 @@ import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Logo from '/Taba2/src/assets/Logo.svg?react';
 import { IoIosSearch } from 'react-icons/io';
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { fetchUser } from "@/Store/Slices/authSlice";
+import { FaRegUser } from "react-icons/fa";
+import { SlHandbag } from "react-icons/sl";
 
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  
+  const user = useSelector((state) => state.auth.user)
+  // console.log(user)
+  
+  
+  useEffect(() =>{
+    const token = Cookies.get("token")
+      if(token){
+        dispatch(fetchUser(token))
+      } 
+  }, [dispatch])
+
 
   const linkRefs = {
     contact: useRef(null),
@@ -14,6 +33,7 @@ export default function Header() {
     favorites: useRef(null),
     recipes: useRef(null),
   };
+
 
   useEffect(() => {
     // Reset all to gray
@@ -28,23 +48,37 @@ export default function Header() {
 
   return (
     <nav className="mx-[60px] mt-[16px] whitespace-nowrap hidden md:grid grid-cols-2 lg:flex lg:justify-center px-[16px] py-[16px] items-center rounded-[50px] bg-gray-500 md:bg-white">
-      <div 
-      className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]"
-      >
-        <button
-          className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px] text-[12px]"
-          onClick={() => navigate('auth/login')}
+      {
+        !user?
+        <div 
+        className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]"
         >
-          تسجيل دخول
-        </button>
-        <button
-          className="text-black text-[12px]/[14px]"
-          onClick={() => navigate('auth/signup')}
+          <button
+            className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px] text-[12px]"
+            onClick={() => navigate('auth/login')}
+          >
+            تسجيل دخول
+          </button>
+          <button
+            className="text-black text-[12px]/[14px]"
+            onClick={() => navigate('auth/signup')}
+          >
+            انشاء حساب
+          </button>
+        </div>
+        :
+        <div
+        className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]  text-white text-[16px]"
         >
-          انشاء حساب
-        </button>
-      </div>
-
+          <button className='flex justify-center bg-primary rounded-full p-4  space-x-2 items-center'>
+            <SlHandbag />
+            <p>العربة</p>
+          </button>
+          <button className='bg-primary rounded-full p-5' onClick={() => navigate('/Taba2/Profile')}>
+            <FaRegUser />
+          </button>
+        </div>
+      }
       {/* Navigation Links */}
       <div className="flex justify-between items-center order-3 lg:order-2 w-full col-span-2 lg:col-span-3 mt-[16px] lg:mt-0 text-[13px] text-[#B0B0B0] font-[700] rounded-[50px">
         <ul className="flex justify-center items-center gap-[30px] w-full pt-1">

@@ -60,16 +60,51 @@ export const loginUser = async ({phone_number, password}) =>{
 }
 
 
-export const getCurrentUser = async (token) => {
+export const getCurrentUse = async (token) => {
   try {
-    const response = await axiosInstance.get("/user/me", {
+    const response = await axiosInstance.get(`user/${response.user.id} `,{
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.user;
   } catch (error) {
     console.error("Get current user error:", error.message);
     throw new Error(`Fetching user failed: ${error.message}`);
   }
 };
+
+export const getCurrentUser = async (token) => {
+  try{
+    const response = await fetch('http://127.0.0.1:8000/api/users/me',{
+      headers:{
+        method:'get',
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }
+    })
+    return response.json()
+  }catch(error){
+    console.error("Get current user error:", error.message);
+    throw new Error(`Fetching user failed: ${error.message}`);
+  }
+}
+
+
+export const logout_1 = async(token) =>{
+  try{
+    const response = await fetch('http://127.0.0.1:8000/api/logout',{
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    return response.message
+  }catch(e){
+    console.error(e.message);
+    throw new Error(`${e.message}`);
+  }
+}

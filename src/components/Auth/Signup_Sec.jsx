@@ -36,7 +36,7 @@ function Signup_Sec() {
         );
 
         if (register.fulfilled.match(resultAction)) {
-            navigate("/Taba2/login");
+            navigate("/Taba2/auth/login");
         }
     } catch (err) {
         console.log(err);
