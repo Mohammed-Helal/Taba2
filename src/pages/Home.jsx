@@ -4,7 +4,7 @@ import Filter_Sec from '../components/Home/Filter_Sec'
 import Recipes_Sec from '../components/Home/Recipes_Sec'
 
 import { useSelector, useDispatch } from "react-redux";
-// import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import { fetchAllRecipes } from "@/Store/Slices/recipesSlice";
 import { useEffect } from "react";
 
@@ -21,7 +21,13 @@ function Home() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
-        Loding...
+          <ClipLoader
+          color="#36d7b7"
+          loading={isLoading}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       </div>
     );
   }
@@ -29,9 +35,11 @@ function Home() {
 
   return (
     <>
-      <Banner />
-      <Filter_Sec />
-      <Recipes_Sec />
+      <div className='bg-[#E6E6E6] md:bg-white p-4'>
+        <Banner />
+        <Filter_Sec />
+        <Recipes_Sec />
+      </div>
     </>
   )
 }

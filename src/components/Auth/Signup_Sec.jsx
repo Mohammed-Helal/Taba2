@@ -46,19 +46,19 @@ function Signup_Sec() {
     };
 
     return (
-        <div className="lg:w-[38%] w-full flex flex-col justify-center items-center md:items-end bg-white lg:px-[64px] lg:py-[104px] px-10 py-30 rounded-[40px] h-full">
+        <div className="lg:w-[38%] w-full flex flex-col justify-between items-center md:items-end bg-white lg:px-[64px] lg:py-[104px] px-10 py-24 rounded-[40px] h-full">
             <div>
                 <h3 className="text-[48px]/[51px] font-[600]">انشاء حساب</h3>
                 <p className="text-[14px]/[51px]">
                     هل لديك حساب بالفعل؟{" "}
-                    <Link className="text-blue-500" to="/Taba2/login">
+                    <Link className="text-blue-500" to="/Taba2/auth/login">
                     تسجيل الدخول
                     </Link>
                 </p>
             </div>
 
             <form
-            className="flex flex-col justify-center items-end gap-[18px] w-full"
+            className="flex flex-col justify-between h-full items-end gap-[18px] w-full mt-3"
             onSubmit={handleSubmit}
             >
             <div className="relative w-full">
@@ -66,7 +66,7 @@ function Signup_Sec() {
                 <input
                 type="text"
                 placeholder="اسم المستخدم"
-                className="rounded-[20px] px-[66px] py-3 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.name}
                 onChange={(e) => setFormData({...FormData, name: e.target.value})}
                 />
@@ -77,7 +77,7 @@ function Signup_Sec() {
                 <input
                 type="text"
                 placeholder="رقم الهاتف"
-                className="rounded-[20px] px-[66px] py-3 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.phone_number}
                 onChange={(e) => setFormData({...FormData, phone_number: e.target.value})}
                 />
@@ -88,7 +88,7 @@ function Signup_Sec() {
                 <input
                 type="password"
                 placeholder="كلمة المرور"
-                className="rounded-[20px] px-[66px] py-3 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.password}
                 onChange={(e) => setFormData({...FormData, password: e.target.value})}
                 />
@@ -99,7 +99,7 @@ function Signup_Sec() {
                 <input
                 type="password"
                 placeholder="تأكيد كلمة المرور"
-                className="rounded-[20px] px-[66px] py-3 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.password_confirmation}
                 onChange={(e) => setFormData({...FormData, password_confirmation: e.target.value})}
                 />

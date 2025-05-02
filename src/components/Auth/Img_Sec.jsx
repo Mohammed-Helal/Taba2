@@ -2,8 +2,11 @@ import React from 'react'
 import Signup_img from "@/assets/images/Signup_img.jpg"
 import Logo from "@/assets/Logo_1.svg?react"
 import { FaArrowLeftLong } from "react-icons/fa6"; 
+import { useNavigate } from 'react-router-dom'
 
 function Img_Sec() {
+    const navigate = useNavigate()
+
     return (
     <>
         <div className='relative pt-[32px] px-[32px] hidden lg:flex flex-col pb-[56px] rounded-[40px] h-full w-[60%]'>
@@ -19,7 +22,10 @@ function Img_Sec() {
 
             <div className="relative z-10 flex flex-col h-full">
                 <div className='flex justify-between'>
-                    <button className='whitespace-nowrap text-[13px]/[32px] font-[400] flex items-center gap-[10px] bg-black/25 rounded-[50px] px-[27px] py-[4px] text-white'>
+                    <button 
+                    className='whitespace-nowrap text-[13px]/[32px] font-[400] flex items-center gap-[10px] bg-black/25 rounded-[50px] px-[27px] py-[4px] text-white'
+                    onClick={() => navigate('/Taba2')}
+                    >
                         <FaArrowLeftLong />
                         العودة للتصفح
                     </button>

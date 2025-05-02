@@ -3,13 +3,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import { Provider } from "react-redux";
 import Home from "./pages/Home.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
 import store from "@/store/store.js"
+import Auth from "./pages/Auth.jsx";
+import Signup_Sec from "./components/Auth/Signup_Sec.jsx";
+import Login_Sec from "./components/Auth/Login_Sec.jsx";
+import Recipe from "./pages/Recipe.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/Taba2/",
+    path: "/Taba2",
     element: <App />,
     children: [
       {
@@ -17,16 +19,28 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "login",
-        element: <Login />,
+        path: 'recipe',
+        element: <Recipe />
       },
+    ],
+  },
+  {
+    path: "/Taba2/auth/",
+    element: <Auth />,
+    children: [
       {
         path: "signup",
-        element: <Signup />,
+        element: <Signup_Sec />,
+      },
+      {
+        path: "login",
+        element: <Login_Sec />,
       },
     ],
   },
 ]);
+
+
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>

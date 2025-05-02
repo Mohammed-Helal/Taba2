@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HiOutlineUserAdd } from "react-icons/hi";
+import { PiSignInBold } from "react-icons/pi";
 import { CiLock } from "react-icons/ci";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,9 +45,9 @@ function Signup_Sec() {
             >
             <div>
                 <h3 className="text-[48px]/[51px] font-[600] whitespace-nowrap">تسجيل الدخول</h3>
-                <p className="text-[14px]/[51px] md:text-end text-center">
+                <p className="text-[14px]/[51px] md:text-end text-center mt-2">
                     ليس لديك حساب؟{" "}
-                    <Link className="text-blue-500" to="/Taba2/signup">
+                    <Link className="text-blue-500" to="/Taba2/auth/signup">
                         انشاء حساب
                     </Link>
                 </p>
@@ -57,7 +57,7 @@ function Signup_Sec() {
                 <input
                 type="text"
                 placeholder="رقم الهاتف"
-                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.phone_number}
                 onChange={(e) => setFormData({...FormData, phone_number: e.target.value})}
                 />
@@ -68,7 +68,7 @@ function Signup_Sec() {
                 <input
                 type="password"
                 placeholder="كلمة المرور"
-                className="rounded-[20px] px-[66px] py-5 placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className="rounded-[20px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
                 value={FormData.password}
                 onChange={(e) => setFormData({...FormData, password: e.target.value})}
                 />
@@ -80,7 +80,7 @@ function Signup_Sec() {
                 disabled={isLoading}
             >
                 {isLoading ? "جاري إنشاء الحساب..." : <>
-                <HiOutlineUserAdd />
+                <PiSignInBold />
                 <p>تسجيل الدخول</p>
                 </>}
             </button>

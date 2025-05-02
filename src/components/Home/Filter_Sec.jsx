@@ -82,7 +82,7 @@ export default function Filter_Sec() {
         <div className="relative w-full max-w-xs">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'cuisine' ? null : 'cuisine')}
-            className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border bg-[#E6E6E6] hover:bg-black hover:text-white transition"
+            className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border bg-white md:bg-[#E6E6E6] hover:bg-black hover:text-white transition"
           >
             <LuChevronDown className="w-4 h-4" />
             <span className="flex items-center gap-2">
@@ -115,13 +115,13 @@ export default function Filter_Sec() {
         <div className="relative w-full max-w-xs">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'meal' ? null : 'meal')}
-            className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border bg-[#E6E6E6] hover:bg-black hover:text-white transition"
+            className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border md:bg-[#E6E6E6] bg-white hover:bg-black hover:text-white transition"
           >
             <LuChevronDown className="w-4 h-4" />
             <span>{selectedMeal}</span>
           </button>
           {openDropdown === 'meal' && (
-            <div className=" absolute mt-1 w-full bg-white border rounded shadow z-10">
+            <div className=" absolute mt-1 w-full bg-white border rounded shadow z-50">
               {meals.map((m) => (
                 <div
                   key={m}

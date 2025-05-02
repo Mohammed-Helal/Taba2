@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from '/Taba2/src/assets/Logo.svg?react';
 import { LuSettings2 } from "react-icons/lu";
 
-function Filter_Sec() {
+function Filter_Sec2() {
   return (
     <>
       <div className='px-[100px] mt-[32px]'>
@@ -55,4 +55,4 @@ function Filter_Sec() {
   )
 }
 
-// export default Filter_Sec
+export default Filter_Sec2

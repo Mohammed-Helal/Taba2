@@ -27,24 +27,26 @@ export default function Header() {
   }, [location.pathname]);
 
   return (
-    <nav className="whitespace-nowrap grid grid-cols-2 lg:flex lg:justify-between px-2 md:px-[70px] lg:px-[100px] py-[22px] items-center">
-      <div className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]">
+    <nav className="mx-[60px] mt-[16px] whitespace-nowrap hidden md:grid grid-cols-2 lg:flex lg:justify-center px-[16px] py-[16px] items-center rounded-[50px] bg-gray-500 md:bg-white">
+      <div 
+      className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]"
+      >
         <button
           className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px] text-[12px]"
-          onClick={() => navigate('login')}
+          onClick={() => navigate('auth/login')}
         >
           تسجيل دخول
         </button>
         <button
           className="text-black text-[12px]/[14px]"
-          onClick={() => navigate('signup')}
+          onClick={() => navigate('auth/signup')}
         >
           انشاء حساب
         </button>
       </div>
 
       {/* Navigation Links */}
-      <div className="flex gap-[50px] justify-center items-center order-3 lg:order-2 w-full col-span-2 lg:col-span-3 mt-[16px] lg:mt-0 text-[13px] text-[#B0B0B0] font-[700]">
+      <div className="flex justify-between items-center order-3 lg:order-2 w-full col-span-2 lg:col-span-3 mt-[16px] lg:mt-0 text-[13px] text-[#B0B0B0] font-[700] rounded-[50px">
         <ul className="flex justify-center items-center gap-[30px] w-full pt-1">
           <li>
             <Link ref={linkRefs.contact} to="#" className="focus:outline-none hover:text-black">
