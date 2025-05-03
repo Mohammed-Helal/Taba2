@@ -33,9 +33,9 @@ function Recipe_Data({ recipe, addToOrder }) {
       </div>
 
       {/* المحتوى الرئيسي */}
-      <div className="flex flex-col 2xl:flex-row-reverse gap-10 w-fit">
+      <div className="flex flex-col 2xl:flex-row-reverse gap-10 w-full">
         {/* القسم الأيمن: المقادير والصورة */}
-        <div className="flex flex-col lg:flex-row gap-8 order-1 min-w-fit">
+        <div className="flex flex-col lg:flex-row gap-8 order-1 min-w-fit justify-end">
           <div className="flex flex-col text-right gap-[16px] min-w-fit items-end text-sm/6 ">
             <p className="text-[20px] font-[700]">المقادير</p>
             <div className="space-y-2">
@@ -115,8 +115,9 @@ function Recipe_Data({ recipe, addToOrder }) {
             {/* الترشيحات */}
             <div className="space-y-4 w-full">
               <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-              <div className="flex gap-2 2xl:flex-col flex-row w-full justify-between flex-grow">
-                <Recipe_Extra className='' />
+              <div className="flex gap-8 2xl:flex-row flex-row w-full justify-center flex-wrap">
+                <Recipe_Extra />
+                <Recipe_Extra />
                 <Recipe_Extra />
                 <Recipe_Extra />
               </div>
