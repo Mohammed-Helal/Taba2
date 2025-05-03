@@ -2,37 +2,20 @@ import React, { useState } from 'react';
 import { renderStars } from '@/Utils/function.util';
 import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
-import Test_img from '@/assets/images/Test.png';
 
-function Recipe_Data({ recipe }) {
-  const [qty, setQty] = useState(1);
+function Recipe_Data({ recipe, addToOrder }) {
+  const [ingredientsQty, setIngredientsQty] = useState(1);
+  const [recipeQty, setRecipeQty] = useState(1);
 
-  const data = [
-    '500 جرام كبدة دجاج منظّفة',
-    '1 كوب دقيق للتغليف',
-    'ملح وفلفل أسود حسب الرغبة',
-    'نصف ملعقة صغيرة بابريكا (فلفل أحمر حلو)',
-    'زيت نباتي للقلي',
-    '1 كوب صوص توت بري (جاهز أو محضّر منزليًا)',
-    'توت بري طازج للتزيين (اختياري)',
-  ];
-
-  const preparationSteps = [
-    'نظفي الكبدة جيدًا وأزيلي أي عروق أو دهون زائدة.',
-    'في طبق، اخلطي الدقيق مع الملح والفلفل والبابريكا.',
-    'اغمسي الكبدة في خليط الدقيق حتى تتغلف جيدًا.',
-    'سخني الزيت في مقلاة عميقة على حرارة متوسطة.',
-    'اقلي الكبدة حتى تصبح ذهبية ومقرمشة (حوالي 3-4 دقائق لكل جانب).',
-    'قدميها ساخنة مع صوص التوت البري والتزيين حسب الرغبة.',
-  ];
-
-  const inc = () => setQty((q) => q + 1);
-  const dec = () => setQty((q) => Math.max(1, q - 1));
+  const incIngr = () => setIngredientsQty(q => q + 1);
+  const decIngr = () => setIngredientsQty(q => Math.max(1, q - 1));
+  const incRec = () => setRecipeQty(q => q + 1);
+  const decRec = () => setRecipeQty(q => Math.max(1, q - 1));
 
   return (
-    <div className="text-right bg-white rounded-[40px] my-4 p-8 flex flex-col gap-4">
-      {/* Top */}
-      <div className="flex justify-between items-start">
+    <div className="text-right bg-white rounded-[40px] my-4 p-8 flex flex-col gap-6 w-full items-end">
+      {/* العنوان والتقييم */}
+      <div className="flex justify-between items-start w-full">
         <div className="flex sm:flex-row flex-col items-center gap-4">
           <button className="bg-primary text-white text-[15px] px-8 py-1 rounded-full whitespace-nowrap">
             تقييم الوصفة
@@ -40,89 +23,105 @@ function Recipe_Data({ recipe }) {
           <Share_Like />
         </div>
         <div className="flex flex-col items-end gap-2">
-          <h2 className="text-[24px] font-[700] max-w-[235px]">
-            كبدة دجاج مقلي مع صلصة التوت البري
-          </h2>
+          <h2 className="text-[24px] font-[700] max-w-[235px]">{recipe.title}</h2>
+          <p className="text-sm text-gray-500">{recipe.subtitle}</p>
           <div className="flex items-center gap-4 text-[#FFC300] flex-row-reverse">
-            {renderStars(3)}
-            <span className="text-[18px] text-black">(3)</span>
+            {renderStars(3)} <span className="text-[18px] text-black">(3)</span>
           </div>
         </div>
       </div>
 
-      {/* Middle Section */}
-      <div className="flex justify-center items-center lg:gap-[32px] gap-2 md:flex-row flex-col">
-        {/* Extras (Left) */}
-        <div className="space-y-4 order-2 lg:order-1">
-          <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-          <div className="grid grid-cols-2 gap-2">
-            <Recipe_Extra />
-            <Recipe_Extra />
-            <div className="col-span-2 ">
-              <Recipe_Extra />
+      {/* المحتوى الرئيسي */}
+      <div className="flex justify-end items-end lg:gap-[32px] gap-2 md:flex-row-reverse flex-col w-fit">
+        {/* القسم الأيمن: المقادير والصورة */}
+        <div className="flex flex-col lg:flex-row gap-8 order-1 w-full">
+          <div className="flex flex-col text-right gap-[32px] w-full">
+            <p className="text-[20px] font-[700]">المقادير</p>
+            <div className="space-y-2">
+              {recipe.ingredients.map((item, idx) => (
+                <p key={idx} className="text-[16px]" dir="rtl">{item}</p>
+              ))}
             </div>
+
+            {/* زر المقادير */}
+            <div className="flex justify-between items-center flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <button onClick={decIngr} className="rounded-full border px-3 py-1">-</button>
+                <span className="text-lg font-semibold">{ingredientsQty}</span>
+                <button onClick={incIngr} className="rounded-full border px-3 py-1">+</button>
+              </div>
+              <button
+                onClick={() => addToOrder({
+                  id: recipe.id,
+                  type: 'ingredients',
+                  title: 'مقادير ' + recipe.title,
+                  price: recipe.price,
+                  qty: ingredientsQty,
+                  img: recipe.img
+                })}
+                className="px-6 py-2 bg-black text-white rounded-full font-bold whitespace-nowrap"
+              >
+                اطلب المقادير — {ingredientsQty * recipe.price} ج.م
+              </button>
+            </div>
+
+            {/* زر الوصفة */}
+            <div className="flex justify-between items-center flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <button onClick={decRec} className="rounded-full border px-3 py-1">-</button>
+                <span className="text-lg font-semibold">{recipeQty}</span>
+                <button onClick={incRec} className="rounded-full border px-3 py-1">+</button>
+              </div>
+              <button
+                onClick={() => addToOrder({
+                  id: recipe.id,
+                  type: 'full',
+                  title: recipe.title,
+                  price: recipe.fullPrice,
+                  qty: recipeQty,
+                  img: recipe.img
+                })}
+                className="px-6 py-2 bg-primary text-white rounded-full font-bold whitespace-nowrap"
+              >
+                اطلب الوصفة — {recipeQty * recipe.fullPrice} ج.م
+              </button>
+            </div>
+          </div>
+
+          {/* صورة الوصفة */}
+          <div className="w-full max-w-[350px]">
+            <img
+              src={recipe.img}
+              alt="Recipe"
+              className="rounded-[40px] object-cover w-full h-[435px]"
+            />
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="hidden md:block h-[435px] border-r-2 border-dashed border-gray-400 mx-4 order-2"></div>
+        {/* القسم الأيسر: الترشيحات + الخط داخل div واحد */}
+        <div className="2xl:flex-row-reverse 2xl:flex hidden items-center gap-4 order-2 overflow-x-auto flex-grow w-[500px]">
+          <div className="flex flex-row-reverse items-start gap-4 flex-grow w-full">
+            {/* الخط الفاصل */}
+            <div className="hidden lg:block h-[435px] border-r-2 border-dashed border-gray-400"></div>
 
-        {/* Ingredients + Order (Right) */}
-        <div className="flex flex-col text-right order-1 lg:order-3 gap-[32px]">
-          <p className="text-[20px] font-[700]">المقادير</p>
-          <div className="space-y-2">
-            {data.map((item, idx) => (
-              <p key={idx} className="text-[16px]" dir="rtl">
-                {item}
-              </p>
-            ))}
-          </div>
-          {/* Quantity & Buttons inline with ingredients container */}
-          <div className='space-y-2'>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <button onClick={dec} className=" rounded-full border px-3 py-1">
-                  -
-                </button>
-                <span className="text-lg font-semibold">{qty}</span>
-                <button onClick={inc} className=" rounded-full border px-3 py-1">
-                  +
-                </button>
+            {/* الترشيحات */}
+            <div className="space-y-4 flex-grow w-full">
+              <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
+              <div className="flex gap-2 flex-col">
+                <Recipe_Extra />
+                <Recipe_Extra />
+                <Recipe_Extra />
               </div>
-              <button className="p-2 bg-black text-white rounded-full font-bold whitespace-nowrap">
-                اطلب المقادير — {qty * 170} ج.م
-              </button>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <button onClick={dec} className=" rounded-full border px-3 py-1">
-                  -
-                </button>
-                <span className="text-lg font-semibold">{qty}</span>
-                <button onClick={inc} className=" rounded-full border px-3 py-1">
-                  +
-                </button>
-              </div>
-              <button className="p-2 bg-black text-white rounded-full font-bold whitespace-nowrap">
-                اطلب المقادير — {qty * 170} ج.م
-              </button>
             </div>
           </div>
         </div>
-
-        {/* Image Card */}
-        <img
-          src={Test_img}
-          alt="Recipe"
-          className="rounded-2xl object-cover h-auto order-4 w-auto"
-        />
       </div>
 
-      {/* Preparation Section */}
-      <div className="text-right">
+      {/* طريقة التحضير */}
+      <div className="text-right w-full">
         <p className="text-[20px] font-[700] mb-2">طريقة التحضير</p>
         <ol className="list-decimal list-inside space-y-2">
-          {preparationSteps.map((step, idx) => (
+          {recipe.preparation.map((step, idx) => (
             <li key={idx} dir="rtl">{step}</li>
           ))}
         </ol>
