@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { fetchUser } from "@/Store/Slices/authSlice";
 import { FaRegUser } from "react-icons/fa";
 import { SlHandbag } from "react-icons/sl";
+import { Click_Profile } from '../../Store/Slices/globalSlice';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ export default function Header() {
   
   const user = useSelector((state) => state.auth.user)
   // console.log(user)
+
+  const isProfilePage = location.pathname === "/Taba2/Profile/acount"
+
+  const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
   
   
   useEffect(() =>{
@@ -54,13 +59,13 @@ export default function Header() {
         className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]"
         >
           <button
-            className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px] text-[12px]"
+            className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px] text-[12px] hover:bg-[#F6B0B8]"
             onClick={() => navigate('auth/login')}
           >
             تسجيل دخول
           </button>
           <button
-            className="text-black text-[12px]/[14px]"
+            className="text-black text-[12px]/[14px] hover:bg-[#F6B0B8]"
             onClick={() => navigate('auth/signup')}
           >
             انشاء حساب
@@ -70,13 +75,15 @@ export default function Header() {
         <div
         className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]  text-white text-[12px]"
         >
-          <button className='flex justify-center bg-primary rounded-full p-4  space-x-2 items-center'>
+          <button className='flex justify-center bg-primary rounded-full p-4  space-x-2 items-center hover:bg-[#F6B0B8]'>
             <SlHandbag />
             <p>العربة</p>
           </button>
-          <button className='bg-primary rounded-full p-5' onClick={() => navigate('/Taba2/Profile')}>
+          {!isProfilePage &&
+          <button className='bg-primary rounded-full p-5 hover:bg-[#F6B0B8]' onClick={() => navigate('/Taba2/Profile/acount')}>
             <FaRegUser />
           </button>
+          }
         </div>
       }
       {/* Navigation Links */}

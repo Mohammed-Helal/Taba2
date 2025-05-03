@@ -7,16 +7,29 @@ import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import { fetchAllRecipes } from "@/Store/Slices/recipesSlice";
 import { useEffect } from "react";
+import { useLocation,useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify";
+// import 'react-toastify/dist/ReactToastify.css';
+import { MdCheckCircle } from "react-icons/md";
 
 
 function Home() {
   const dispatch = useDispatch();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const { isLoading, error } = useSelector((state) => state.recipes);
 
   useEffect(() => {
     dispatch(fetchAllRecipes());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      toast.success(location.state.message);
+      navigate(location.pathname, { message: true });
+    }
+  }, [location]);
 
   if (isLoading) {
     return (

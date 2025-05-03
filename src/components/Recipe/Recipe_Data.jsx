@@ -47,11 +47,9 @@ function Recipe_Data({ recipe, addToOrder }) {
             {/* زر المقادير */}
             <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
               <div className="flex items-center gap-2">
-                <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
-                "><FaMinus size={6} /></button>
+                <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
                 <span className="text-lg font-semibold">{ingredientsQty}</span>
-                <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
-                "><FaPlus size={6} /></button>
+                <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
               </div>
               <button
                 onClick={() => addToOrder({
@@ -71,13 +69,11 @@ function Recipe_Data({ recipe, addToOrder }) {
             </div>
 
             {/* زر الوصفة */}
-            <div className="flex justify-between  flex-wrap gap-2">
+            <div className="flex justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
-                "><FaMinus size={6} /></button>
+                <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
                 <span className="text-lg font-semibold">{recipeQty}</span>
-                <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
-                "><FaPlus size={6} /></button>
+                <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
               </div>
               <button
                 onClick={() => addToOrder({
@@ -90,7 +86,7 @@ function Recipe_Data({ recipe, addToOrder }) {
                 })}
                 className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
               >
-                 <span>اطلب الوصفه</span>
+                <span>اطلب الوصفه</span>
                 <span>|</span>
                 <span>{recipeQty * recipe.fullPrice} ج.م</span>
               </button>
@@ -107,6 +103,7 @@ function Recipe_Data({ recipe, addToOrder }) {
           </div>
         </div>
 
+        {/* القسم الأيسر: الترشيحات */}
         <div className="2xl:flex-row-reverse 2xl:flex items-center gap-4 order-2 overflow-x-auto flex-grow w-full min-w-[50px]">
           <div className="flex flex-row-reverse items-center gap-12 flex-grow w-full">
             {/* الخط الفاصل */}

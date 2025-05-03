@@ -27,7 +27,7 @@ function Signup_Sec() {
             );
 
             if (login.fulfilled.match(resultAction)) {
-                navigate("/Taba2/");
+                navigate("/Taba2/", {state: {message: "تم تسجيل الدخول بنجاح"}});
             }
         } catch (err) {
             console.log(err);

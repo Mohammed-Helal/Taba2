@@ -9,6 +9,7 @@ import Signup_Sec from "./components/Auth/Signup_Sec.jsx";
 import Login_Sec from "./components/Auth/Login_Sec.jsx";
 import Recipe from "./pages/Recipe.jsx";
 import Profile from "./pages/Profile.jsx";
+import Acount from '@/components/Profile/Acount';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />
+        element: <Profile />,
+        children:[
+          {
+            path: 'acount',
+            element: <Acount />
+          }
+        ]
       },
     ],
   },

@@ -7,7 +7,8 @@ import Cookies from "js-cookie";
 import { fetchUser } from "@/Store/Slices/authSlice";
 import { FaRegUser } from "react-icons/fa";
 import { SlHandbag } from "react-icons/sl";
-
+import { IoMdList } from "react-icons/io";
+import { Click_Profile } from '../../Store/Slices/globalSlice';
 
 function Header_S() {
   const navigate = useNavigate();
@@ -17,13 +18,17 @@ function Header_S() {
   const user = useSelector((state) => state.auth.user)
   // console.log(user)
   
-  
+  const isProfilePage = location.pathname === "/Taba2/Profile/acount"
+
+  const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
+
   useEffect(() =>{
     const token = Cookies.get("token")
       if(token){
         dispatch(fetchUser(token))
       } 
   }, [dispatch])
+
 
   const linkRefs = {
     contact: useRef(null),
@@ -70,33 +75,43 @@ function Header_S() {
         <div
         className="flex space-x-[16px] items-center lg:col-span-3 font-[600]  text-white text-[16px]"
         >
-          <button className='bg-primary rounded-full p-4'>
+          {isProfilePage &&
+            <button 
+            className={`hover:text-[#F6B0B8] ${isProfileSlider? 'text-[#F6B0B8]': 'text-primary'} text-primary text-[30px]`}
+            onClick={() => dispatch(Click_Profile())}
+            >
+              <IoMdList />
+            </button>
+          }
+          <button className='bg-primary rounded-full p-3 hover:bg-[#F6B0B8]'>
             <SlHandbag />
           </button>
-          <button className='bg-primary rounded-full p-4' onClick={() => navigate('/Taba2/Profile')}>
+          {!isProfilePage &&
+          <button className='bg-primary rounded-full p-3 hover:text-[#F6B0B8]' onClick={() => navigate('/Taba2/Profile/acount')}>
             <FaRegUser />
           </button>
+          }
         </div>
         }
 
-        {/* Logo */}
-        <Link to="/Taba2">
-          <Logo className="h-16 w-16" />
-        </Link>
       
         {/* Search Input */}
-        <div className="relative flex flex-row-reverse flex-1 max-w-[500px]">
-          <IoIosSearch
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-[#B0B0B0] rounded-full p-2 cursor-pointer z-10"
-            size={40}
-          />
+        <div className="relative flex flex-1 max-w-[500px]">
           <input
             type="text"
             className="mr-2 pl-12 pr-4 h-10 w-full bg-[#F3F3F6] rounded-full border border-gray-300 placeholder:text-black placeholder:text-[14px] focus:outline-none text-right"
             placeholder="نفسك في ايه؟"
           />
+          <IoIosSearch
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-[#B0B0B0] rounded-full p-2 cursor-pointer z-10"
+            size={40}
+          />
         </div>
 
+        {/* Logo */}
+        <Link to="/Taba2">
+          <Logo className="h-16 w-16" />
+        </Link>
       </div>
 
       {/* Bottom Section: Navigation Links */}
