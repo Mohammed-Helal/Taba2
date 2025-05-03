@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { renderStars } from '@/Utils/function.util';
 import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
+import { FaPlus, FaMinus } from 'react-icons/fa';
 
 function Recipe_Data({ recipe, addToOrder }) {
   const [ingredientsQty, setIngredientsQty] = useState(1);
@@ -17,7 +18,7 @@ function Recipe_Data({ recipe, addToOrder }) {
       {/* العنوان والتقييم */}
       <div className="flex justify-between items-start w-full">
         <div className="flex sm:flex-row flex-col items-center gap-4">
-          <button className="bg-primary text-white text-[15px] px-8 py-1 rounded-full whitespace-nowrap">
+          <button className="bg-primary text-white text-[15px] px-8 h-8  rounded-full whitespace-nowrap">
             تقييم الوصفة
           </button>
           <Share_Like />
@@ -32,10 +33,10 @@ function Recipe_Data({ recipe, addToOrder }) {
       </div>
 
       {/* المحتوى الرئيسي */}
-      <div className="flex justify-end items-end lg:gap-[32px] gap-2 md:flex-row-reverse flex-col w-fit">
+      <div className="flex flex-col 2xl:flex-row-reverse gap-10 w-fit">
         {/* القسم الأيمن: المقادير والصورة */}
-        <div className="flex flex-col lg:flex-row gap-8 order-1 w-full">
-          <div className="flex flex-col text-right gap-[32px] w-full">
+        <div className="flex flex-col lg:flex-row gap-8 order-1 min-w-fit">
+          <div className="flex flex-col text-right gap-[16px] min-w-fit items-end text-sm/6 ">
             <p className="text-[20px] font-[700]">المقادير</p>
             <div className="space-y-2">
               {recipe.ingredients.map((item, idx) => (
@@ -44,11 +45,13 @@ function Recipe_Data({ recipe, addToOrder }) {
             </div>
 
             {/* زر المقادير */}
-            <div className="flex justify-between items-center flex-wrap gap-2">
+            <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
               <div className="flex items-center gap-2">
-                <button onClick={decIngr} className="rounded-full border px-3 py-1">-</button>
+                <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
+                "><FaMinus size={6} /></button>
                 <span className="text-lg font-semibold">{ingredientsQty}</span>
-                <button onClick={incIngr} className="rounded-full border px-3 py-1">+</button>
+                <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
+                "><FaPlus size={6} /></button>
               </div>
               <button
                 onClick={() => addToOrder({
@@ -59,18 +62,22 @@ function Recipe_Data({ recipe, addToOrder }) {
                   qty: ingredientsQty,
                   img: recipe.img
                 })}
-                className="px-6 py-2 bg-black text-white rounded-full font-bold whitespace-nowrap"
+                className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
               >
-                اطلب المقادير — {ingredientsQty * recipe.price} ج.م
+                <span>اطلب المقادير</span>
+                <span>|</span>
+                <span>{ingredientsQty * recipe.price} ج.م</span>
               </button>
             </div>
 
             {/* زر الوصفة */}
-            <div className="flex justify-between items-center flex-wrap gap-2">
+            <div className="flex justify-between  flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <button onClick={decRec} className="rounded-full border px-3 py-1">-</button>
+                <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
+                "><FaMinus size={6} /></button>
                 <span className="text-lg font-semibold">{recipeQty}</span>
-                <button onClick={incRec} className="rounded-full border px-3 py-1">+</button>
+                <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs
+                "><FaPlus size={6} /></button>
               </div>
               <button
                 onClick={() => addToOrder({
@@ -81,9 +88,11 @@ function Recipe_Data({ recipe, addToOrder }) {
                   qty: recipeQty,
                   img: recipe.img
                 })}
-                className="px-6 py-2 bg-primary text-white rounded-full font-bold whitespace-nowrap"
+                className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
               >
-                اطلب الوصفة — {recipeQty * recipe.fullPrice} ج.م
+                 <span>اطلب الوصفه</span>
+                <span>|</span>
+                <span>{recipeQty * recipe.fullPrice} ج.م</span>
               </button>
             </div>
           </div>
@@ -93,22 +102,21 @@ function Recipe_Data({ recipe, addToOrder }) {
             <img
               src={recipe.img}
               alt="Recipe"
-              className="rounded-[40px] object-cover w-full h-[435px]"
+              className="rounded-[40px] object-cover min-w-full max-w-[330px]"
             />
           </div>
         </div>
 
-        {/* القسم الأيسر: الترشيحات + الخط داخل div واحد */}
-        <div className="2xl:flex-row-reverse 2xl:flex hidden items-center gap-4 order-2 overflow-x-auto flex-grow w-[500px]">
-          <div className="flex flex-row-reverse items-start gap-4 flex-grow w-full">
+        <div className="2xl:flex-row-reverse 2xl:flex items-center gap-4 order-2 overflow-x-auto flex-grow w-full min-w-[50px]">
+          <div className="flex flex-row-reverse items-center gap-12 flex-grow w-full">
             {/* الخط الفاصل */}
-            <div className="hidden lg:block h-[435px] border-r-2 border-dashed border-gray-400"></div>
+            <div className="hidden 2xl:block h-[300px] border-r-2 border-dashed border-gray-400"></div>
 
             {/* الترشيحات */}
-            <div className="space-y-4 flex-grow w-full">
+            <div className="space-y-4 w-full">
               <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-              <div className="flex gap-2 flex-col">
-                <Recipe_Extra />
+              <div className="flex gap-2 2xl:flex-col flex-row w-full justify-between flex-grow">
+                <Recipe_Extra className='' />
                 <Recipe_Extra />
                 <Recipe_Extra />
               </div>

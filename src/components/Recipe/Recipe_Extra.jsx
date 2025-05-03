@@ -4,19 +4,19 @@ import Catshap from '@/assets/images/Catshap.png';
 
 function Recipe_Extra() {
   return (
-    <div className="border-dashed border-gray-400 border-2 rounded-[10px] p-4 flex items-center justify-between gap-3 text-right">
+    <div className="border-dashed border-gray-400 border-2 rounded-[10px] p-4 flex items-center justify-between gap-3 text-right w-full">
       <div className="flex flex-col">
         <p className="font-semibold">كاتشب حار</p>
         <span className="text-[12px] text-gray-500">50 gm</span>
-        <div className="flex items-center justify-between mt-2 font-bold text-primary">
-          <FaCirclePlus className="text-xl" />
-          <span>10 ج.م</span>
+        <div className="flex items-center justify-between mt-2 font-normal text-black">
+          <FaCirclePlus className="text-xl " />
+          <span className='text-primary'>10 ج.م</span>
         </div>
       </div>
       <img
         src={Catshap}
         alt="كاتشب حار"
-        className="w-[60px] h-[60px] object-cover rounded-lg"
+        className="w-[60px] h-[60px] object-cover rounded-lg "
       />
     </div>
 );

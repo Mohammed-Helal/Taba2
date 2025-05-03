@@ -64,7 +64,7 @@ function Recipe() {
   return (
     <>
       <div className="fixed inset-0 bg-[#E6E6E6] -z-10" />
-      <div className="relative flex flex-col-reverse lg:flex-row justify-center items-start gap-4 py-2 mx-[60px] lg:max-w-full">
+      <div className="relative flex flex-col-reverse lg:flex-row justify-center items-start gap-4 py-0 mx-[60px] lg:max-w-full">
         <Recipe_Order
           orderItems={orderItems}
           onQtyChange={handleQtyChange}
