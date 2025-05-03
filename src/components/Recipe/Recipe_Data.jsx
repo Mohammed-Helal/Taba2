@@ -30,11 +30,11 @@ function Recipe_Data({ recipe }) {
   const dec = () => setQty((q) => Math.max(1, q - 1));
 
   return (
-    <div className="text-right bg-white rounded-[40px] my-4 p-8 flex flex-col gap-6">
+    <div className="text-right bg-white rounded-[40px] my-4 p-8 flex flex-col gap-4">
       {/* Top */}
       <div className="flex justify-between items-start">
-        <div className="flex items-center gap-6">
-          <button className="bg-primary text-white text-[15px] px-8 py-1 rounded-full">
+        <div className="flex sm:flex-row flex-col items-center gap-4">
+          <button className="bg-primary text-white text-[15px] px-8 py-1 rounded-full whitespace-nowrap">
             تقييم الوصفة
           </button>
           <Share_Like />
@@ -51,14 +51,14 @@ function Recipe_Data({ recipe }) {
       </div>
 
       {/* Middle Section */}
-      <div className="flex justify-center gap-8 flex-wrap md:flex-nowrap">
+      <div className="flex justify-center items-center lg:gap-[32px] gap-2 md:flex-row flex-col">
         {/* Extras (Left) */}
-        <div className="w-full md:max-w-md space-y-4 order-2 md:order-1">
+        <div className="space-y-4 order-2 lg:order-1">
           <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
           <div className="grid grid-cols-2 gap-2">
             <Recipe_Extra />
             <Recipe_Extra />
-            <div className="col-span-2">
+            <div className="col-span-2 ">
               <Recipe_Extra />
             </div>
           </div>
@@ -68,9 +68,9 @@ function Recipe_Data({ recipe }) {
         <div className="hidden md:block h-[435px] border-r-2 border-dashed border-gray-400 mx-4 order-2"></div>
 
         {/* Ingredients + Order (Right) */}
-        <div className="flex flex-col min-w-fit max-w-full md:max-w-lg text-right order-1 md:order-3">
-          <p className="text-[20px] font-[700] mb-2">المقادير</p>
-          <div className="space-y-2 mb-6 min-w-fit max-w-full">
+        <div className="flex flex-col text-right order-1 lg:order-3 gap-[32px]">
+          <p className="text-[20px] font-[700]">المقادير</p>
+          <div className="space-y-2">
             {data.map((item, idx) => (
               <p key={idx} className="text-[16px]" dir="rtl">
                 {item}
@@ -78,22 +78,35 @@ function Recipe_Data({ recipe }) {
             ))}
           </div>
           {/* Quantity & Buttons inline with ingredients container */}
-          <div className="flex items-center gap-4 mb-4">
-            <button onClick={dec} className="w-8 h-8 rounded-full border flex items-center justify-center">
-              -
-            </button>
-            <span className="text-lg font-semibold">{qty}</span>
-            <button onClick={inc} className="w-8 h-8 rounded-full border flex items-center justify-center">
-              +
-            </button>
-          </div>
-          <div className="space-y-3">
-            <button className="w-full py-2 bg-black text-white rounded-full font-bold">
-              اطلب المقادير — {qty * 170} ج.م
-            </button>
-            <button className="w-full py-2 bg-black text-white rounded-full font-bold">
-              اطلب الوصفة — {qty * 220} ج.م
-            </button>
+          <div className='space-y-2'>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <button onClick={dec} className=" rounded-full border px-3 py-1">
+                  -
+                </button>
+                <span className="text-lg font-semibold">{qty}</span>
+                <button onClick={inc} className=" rounded-full border px-3 py-1">
+                  +
+                </button>
+              </div>
+              <button className="p-2 bg-black text-white rounded-full font-bold whitespace-nowrap">
+                اطلب المقادير — {qty * 170} ج.م
+              </button>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <button onClick={dec} className=" rounded-full border px-3 py-1">
+                  -
+                </button>
+                <span className="text-lg font-semibold">{qty}</span>
+                <button onClick={inc} className=" rounded-full border px-3 py-1">
+                  +
+                </button>
+              </div>
+              <button className="p-2 bg-black text-white rounded-full font-bold whitespace-nowrap">
+                اطلب المقادير — {qty * 170} ج.م
+              </button>
+            </div>
           </div>
         </div>
 
@@ -101,7 +114,7 @@ function Recipe_Data({ recipe }) {
         <img
           src={Test_img}
           alt="Recipe"
-          className="rounded-2xl w-[300px] object-cover h-auto order-4"
+          className="rounded-2xl object-cover h-auto order-4 w-auto"
         />
       </div>
 
@@ -110,7 +123,7 @@ function Recipe_Data({ recipe }) {
         <p className="text-[20px] font-[700] mb-2">طريقة التحضير</p>
         <ol className="list-decimal list-inside space-y-2">
           {preparationSteps.map((step, idx) => (
-            <li key={idx}>{step}</li>
+            <li key={idx} dir="rtl">{step}</li>
           ))}
         </ol>
       </div>

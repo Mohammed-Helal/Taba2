@@ -47,12 +47,12 @@ function Header_S() {
   return (
     <div className="px-6 py-4 w-full flex flex-col gap-4 bg-[#E6E6E6] md:hidden">
       {/* Top Section: Buttons + Search + Logo */}
-      <div className="rounded-[50px] bg-white p-4 flex flex-wrap justify-between flex-row-reverse items-center gap-4 lg:px-[100px]">
+      <div className="rounded-[50px] bg-white p-4 flex flex-wrap justify-between items-center gap-4 lg:px-[100px]">
         
         {/* Buttons */}
         {
         !user?
-        <div className="flex space-x-[16px] items-center font-[600]">
+        <div className="flex space-x-[16px] items-center font-[600] text-[12px]">
           <button
             className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px]"
             onClick={() => navigate('auth/login')}
@@ -68,12 +68,12 @@ function Header_S() {
         </div>
         :
         <div
-        className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]  text-white text-[16px]"
+        className="flex space-x-[16px] items-center lg:col-span-3 font-[600]  text-white text-[16px]"
         >
           <button className='bg-primary rounded-full p-4'>
             <SlHandbag />
           </button>
-          <button className='bg-primary rounded-full p-4'>
+          <button className='bg-primary rounded-full p-4' onClick={() => navigate('/Taba2/Profile')}>
             <FaRegUser />
           </button>
         </div>

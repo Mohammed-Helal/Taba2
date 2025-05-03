@@ -7,7 +7,7 @@ function Recipe() {
     <>
       {/* Full-page gray backdrop */}
       <div className="fixed inset-0 bg-[#E6E6E6] -z-10" />
-      <div className="relative flex justify-center items-start gap-4 min-h-screen py-8 lg:mx-[60px] scale-90">
+      <div className="relative flex lg:flex-row flex-col-reverse justify-center items-center gap-4 py-2 lg:mx-[60px] mx-5">
         <Recipe_Order />
         <Recipe_Data />
       </div>

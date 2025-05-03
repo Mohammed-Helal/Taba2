@@ -68,7 +68,7 @@ export default function Header() {
         </div>
         :
         <div
-        className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]  text-white text-[16px]"
+        className="flex space-x-[16px] items-center order-1 lg:col-span-3 font-[600]  text-white text-[12px]"
         >
           <button className='flex justify-center bg-primary rounded-full p-4  space-x-2 items-center'>
             <SlHandbag />

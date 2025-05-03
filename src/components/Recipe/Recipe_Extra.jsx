@@ -14,7 +14,7 @@ function Recipe_Extra() {
             <p dir="rtl">10 ج.م</p>
           </div>
         </div>
-        <img src={Catshap} alt="" />
+        <img src={Catshap} alt=""/>
       </div>
     </>
   )
