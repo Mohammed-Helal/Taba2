@@ -12,13 +12,21 @@ function Signup_Sec() {
 
     // States
     const [FormData, setFormData] = useState({
-        phone_number:"",
-        password:"",
-    })
-    const [isLoading, setIsLoading] = useState(false)
+        phone_number: "",
+        password: "",
+    });
+    const [touched, setTouched] = useState({ phone_number: false, password: false });
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Validation
+    const errorPhone = FormData.phone_number.length !== 11;
+    const errorPassword = FormData.password.trim() === "";
+    const formInvalid = errorPhone || errorPassword;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setTouched({ phone_number: true, password: true });
+        if (formInvalid) return;
 
         setIsLoading(true);
         try {
@@ -34,6 +42,15 @@ function Signup_Sec() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handlePhoneChange = (e) => {
+        const digits = e.target.value.replace(/\D/g, '');
+        setFormData({ ...FormData, phone_number: digits.slice(0, 11) });
+    };
+
+    const handlePasswordChange = (e) => {
+        setFormData({ ...FormData, password: e.target.value });
     };
 
     return (
@@ -52,34 +69,44 @@ function Signup_Sec() {
                     </Link>
                 </p>
             </div>
-            <div className="relative w-full">
+            <div className="relative w-full mb-6">
                 <MdOutlineLocalPhone className="absolute right-[32px] top-1/2 transform -translate-y-1/2" />
                 <input
                 type="text"
+                inputMode="numeric"
+                maxLength={11}
                 placeholder="رقم الهاتف"
-                className="rounded-[20px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className={`rounded-[15px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none h-20 ${touched.phone_number && errorPhone ? 'border-2 border-red-500' : ''}`}
                 value={FormData.phone_number}
-                onChange={(e) => setFormData({...FormData, phone_number: e.target.value})}
+                onChange={handlePhoneChange}
+                onBlur={() => setTouched({ ...touched, phone_number: true })}
                 />
+                {touched.phone_number && errorPhone && (
+                  <p className="text-red-500 text-xs absolute left-0 bottom-[-18px]">يجب أن يكون الرقم 11 رقماً</p>
+                )}
             </div>
 
-            <div className="relative w-full">
+            <div className="relative w-full mb-6">
                 <CiLock className="absolute right-[32px] top-1/2 transform -translate-y-1/2" />
                 <input
                 type="password"
                 placeholder="كلمة المرور"
-                className="rounded-[20px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none"
+                className={`rounded-[15px] px-[66px] py-[24px] placeholder:text-right bg-[#D9D9D9] text-right w-full focus:outline-none h-20 ${touched.password && errorPassword ? 'border-2 border-red-500' : ''}`}
                 value={FormData.password}
-                onChange={(e) => setFormData({...FormData, password: e.target.value})}
+                onChange={handlePasswordChange}
+                onBlur={() => setTouched({ ...touched, password: true })}
                 />
+                {touched.password && errorPassword && (
+                  <p className="text-red-500 text-xs absolute left-0 bottom-[-18px]">يجب كتابة كلمة المرور</p>
+                )}
             </div>
 
             <button
                 type="submit"
-                className="flex items-center justify-center gap-2 bg-primary text-white text-[18px]/[32px] font-[400] px-[21%] py-[3%] rounded-[20px] w-full"
-                disabled={isLoading}
+                className="flex items-center justify-center gap-2 bg-primary text-white text-[18px]/[32px] font-[400] px-[21%] py-[3%] rounded-[20px] w-full h-20 disabled:opacity-50"
+                disabled={isLoading || formInvalid}
             >
-                {isLoading ? "جاري إنشاء الحساب..." : <>
+                {isLoading ? "جاري تسجيل الدخول..." : <>
                 <PiSignInBold />
                 <p>تسجيل الدخول</p>
                 </>}

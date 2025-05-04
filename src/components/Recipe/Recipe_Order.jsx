@@ -116,7 +116,7 @@ function Recipe_Order({ orderItems, onQtyChange, deliveryFee = 30 }) {
       </div>
 
       {/* buttons */}
-      <button className="flex flex-row gap-4 items-center justify-center h-16 w-full py-3 bg-[url(@/assets/images/Order_button_BG2.png)] text-white rounded-full text-sm font-bold mb-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+      <button className="flex flex-row gap-4 items-center justify-center h-16 w-full py-3 bg-[url(@/assets/images/Order_button_BG2.png)] text-white rounded-full text-sm font-bold mb-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
         <Box></Box>
         <span>اطلب الآن</span>
       </button>

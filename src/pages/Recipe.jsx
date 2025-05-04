@@ -66,7 +66,7 @@ function Recipe() {
       <div className="fixed inset-0 bg-[#E6E6E6] -z-10" />
       <div 
       style={{ zoom: '0.8', transformOrigin: 'top right' }} 
-      className="relative flex flex-col-reverse lg:flex-row justify-center items-start gap-4 py-0 mx-[60px] lg:max-w-full"
+      className="relative flex flex-col-reverse lg:flex-row justify-center items-center lg:items-start gap-4 py-0 mx-[60px] lg:max-w-full"
       >
         <Recipe_Order
           orderItems={orderItems}

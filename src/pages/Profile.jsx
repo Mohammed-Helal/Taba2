@@ -35,7 +35,7 @@ function Profile() {
   
   return (
     <>
-      <div className='mx-[32px] space-y- h-screen'>
+      <div className='mx-[60px] space-y- h-screen'>
         <div className="fixed inset-0 bg-[#E6E6E6] -z-10"/>
 
         <Slider />
