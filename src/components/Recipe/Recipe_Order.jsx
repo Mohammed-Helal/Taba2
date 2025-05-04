@@ -63,7 +63,7 @@ function Recipe_Order({ orderItems, onQtyChange, deliveryFee = 30 }) {
               src={item.img}
               alt={item.title}
               className="min-w-[100px] h-[100px] scale-[110%] object-cover rounded-full"
-             />
+            />
           </div>
         </div>
       </div>
@@ -115,8 +115,8 @@ function Recipe_Order({ orderItems, onQtyChange, deliveryFee = 30 }) {
         </div>
       </div>
 
-      {/* الأزرار */}
-      <button className="flex flex-row gap-4 items-center justify-center h-16 w-full py-3 bg-[url(@/assets/images/Order_button_BG2.png)] text-white rounded-full text-sm font-bold mb-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] mb-8">
+      {/* buttons */}
+      <button className="flex flex-row gap-4 items-center justify-center h-16 w-full py-3 bg-[url(@/assets/images/Order_button_BG2.png)] text-white rounded-full text-sm font-bold mb-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
         <Box></Box>
         <span>اطلب الآن</span>
       </button>

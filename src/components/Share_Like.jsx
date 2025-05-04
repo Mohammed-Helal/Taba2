@@ -4,15 +4,22 @@ import Share from '@/assets/send.svg?react'
 import LikeDef from '@/assets/heart_def.svg?react'
 import LikeActive from '@/assets/heart_active.svg?react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { ToggleFav } from '@/Store/Slices/globalSlice'
 
 // Motion-enabled SVGs
 const MotionShare = motion(Share)
 const MotionLikeDef = motion(LikeDef)
 const MotionLikeActive = motion(LikeActive)
 
-function Share_Like() {
+function Share_Like({recipe}) {
   const [liked, setLiked] = useState(false)
-  const handleLike = () => setLiked(prev => !prev)
+  const dispatch = useDispatch()
+
+  const handleLike = () => {
+    setLiked(prev => !prev)
+    dispatch(ToggleFav(Object.entries(recipe)))
+  }
   const handleShare = () => console.log('Share clicked', recipe)
 
   return (

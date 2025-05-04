@@ -10,6 +10,7 @@ import Login_Sec from "./components/Auth/Login_Sec.jsx";
 import Recipe from "./pages/Recipe.jsx";
 import Profile from "./pages/Profile.jsx";
 import Acount from '@/components/Profile/Acount';
+import Fav from "./components/Profile/Fav.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,11 @@ const router = createBrowserRouter([
           {
             path: 'acount',
             element: <Acount />
-          }
+          },
+          {
+            path: 'fav',
+            element: <Fav />
+          },
         ]
       },
     ],

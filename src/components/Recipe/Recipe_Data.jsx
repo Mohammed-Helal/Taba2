@@ -35,66 +35,68 @@ function Recipe_Data({ recipe, addToOrder }) {
       {/* المحتوى الرئيسي */}
       <div className="flex flex-col 2xl:flex-row-reverse gap-10 w-full">
         {/* القسم الأيمن: المقادير والصورة */}
-        <div className="flex flex-col lg:flex-row gap-8 order-1 min-w-fit justify-end">
-          <div className="flex flex-col text-right gap-[16px] min-w-fit items-end text-sm/6 ">
-            <p className="text-[20px] font-[700]">المقادير</p>
-            <div className="space-y-2">
-              {recipe.ingredients.map((item, idx) => (
-                <p key={idx} className="text-[16px]" dir="rtl">{item}</p>
-              ))}
-            </div>
-
-            {/* زر المقادير */}
-            <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
-              <div className="flex items-center gap-2">
-                <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
-                <span className="text-lg font-semibold">{ingredientsQty}</span>
-                <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+        <div className="flex flex-col lg:flex-row lg:justify-center items-center gap-8 order-1 min-w-fit justify-end">
+          <div className="flex flex-col md:flex-row-reverse gap-4 lg:flex-col text-right md:gap-[90px] lg:gap-[16px] min-w-fit items-end text-sm/6 ">
+              <div className="space-y-2">
+                <p className="text-[20px] font-[700]">المقادير</p>
+                {recipe.ingredients.map((item, idx) => (
+                  <p key={idx} className="text-[16px]" dir="rtl">{item}</p>
+                ))}
               </div>
-              <button
-                onClick={() => addToOrder({
-                  id: recipe.id,
-                  type: 'ingredients',
-                  title: 'مقادير ' + recipe.title,
-                  price: recipe.price,
-                  qty: ingredientsQty,
-                  img: recipe.img
-                })}
-                className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
-              >
-                <span>اطلب المقادير</span>
-                <span>|</span>
-                <span>{ingredientsQty * recipe.price} ج.م</span>
-              </button>
-            </div>
 
-            {/* زر الوصفة */}
-            <div className="flex justify-between flex-wrap gap-2">
-              <div className="flex items-center gap-2">
-                <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
-                <span className="text-lg font-semibold">{recipeQty}</span>
-                <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+            <div className='flex-col lg:flex-col flex gap-4 md:gap-[100px] lg:gap-4'>
+              {/* زر المقادير */}
+              <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
+                <div className="flex items-center gap-2">
+                  <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
+                  <span className="text-lg font-semibold">{ingredientsQty}</span>
+                  <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                </div>
+                <button
+                  onClick={() => addToOrder({
+                    id: recipe.id,
+                    type: 'ingredients',
+                    title: 'مقادير ' + recipe.title,
+                    price: recipe.price,
+                    qty: ingredientsQty,
+                    img: recipe.img
+                  })}
+                  className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
+                >
+                  <span>اطلب المقادير</span>
+                  <span>|</span>
+                  <span>{ingredientsQty * recipe.price} ج.م</span>
+                </button>
               </div>
-              <button
-                onClick={() => addToOrder({
-                  id: recipe.id,
-                  type: 'full',
-                  title: recipe.title,
-                  price: recipe.fullPrice,
-                  qty: recipeQty,
-                  img: recipe.img
-                })}
-                className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
-              >
-                <span>اطلب الوصفه</span>
-                <span>|</span>
-                <span>{recipeQty * recipe.fullPrice} ج.م</span>
-              </button>
+
+              {/* زر الوصفة */}
+              <div className="flex justify-between  gap-2">
+                <div className="flex items-center gap-2">
+                  <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
+                  <span className="text-lg font-semibold">{recipeQty}</span>
+                  <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                </div>
+                <button
+                  onClick={() => addToOrder({
+                    id: recipe.id,
+                    type: 'full',
+                    title: recipe.title,
+                    price: recipe.fullPrice,
+                    qty: recipeQty,
+                    img: recipe.img
+                  })}
+                  className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
+                >
+                  <span>اطلب الوصفه</span>
+                  <span>|</span>
+                  <span>{recipeQty * recipe.fullPrice} ج.م</span>
+                </button>
+              </div>
             </div>
           </div>
 
           {/* صورة الوصفة */}
-          <div className="w-full max-w-[350px]">
+          <div className="w-full max-w-[350px] overflow-hidden">
             <img
               src={recipe.img}
               alt="Recipe"
@@ -112,7 +114,7 @@ function Recipe_Data({ recipe, addToOrder }) {
             {/* الترشيحات */}
             <div className="space-y-4 w-full">
               <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-              <div className="flex gap-8 2xl:flex-row flex-row w-full justify-center flex-wrap">
+              <div className="grid gap-8 md:grid-cols-2 grid-cols-1 flex-row w-full justify-center">
                 <Recipe_Extra />
                 <Recipe_Extra />
                 <Recipe_Extra />

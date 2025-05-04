@@ -13,7 +13,7 @@ function Acount() {
         </div>
         {/* User_Date */}
         <div className='text-right relative rounded-[10px] md:bg-white'>
-          <div className='absolute inset-0 -z-10 opacity-10 block md:hidden'>
+          <div className='absolute inset-0 -z-10 opacity-10 block md:hidden rounded-[10px]'>
             <img src={User_bg} alt="" className="w-full h-full object-cover" />
           </div>
           <div  className='p-[32px]'>
@@ -26,7 +26,7 @@ function Acount() {
                 <input 
                 type="text" 
                 placeholder='محمد هلال' 
-                className='w-full text-[24px] placeholder:text-black placeholder:text-right px-[24px] py-[22px] rounded-md bg-white/0 border-gray-300 border-2 text-right'
+                className='w-full text-[24px] placeholder:text-black placeholder:text-right px-[24px] py-[16px] rounded-md bg-white/0 border-gray-300 border-2 text-right'
                 />
               </div>
               <div className='space-y-2'>
@@ -37,7 +37,7 @@ function Acount() {
                   <input 
                   type="رقم الهاتق" 
                   placeholder='01068748795' 
-                  className='w-full text-[24px] placeholder:text-black px-[24px] py-[22px] rounded-md bg-white/0 border-gray-300 border-2'
+                  className='w-full text-[24px] placeholder:text-black px-[24px] py-[16px] rounded-md bg-white/0 border-gray-300 border-2'
                   />
                   <GoPencil className=' absolute text-[24px] top-7 text-gray-500 right-6'/>
                 </div>

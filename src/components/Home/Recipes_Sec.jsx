@@ -8,7 +8,7 @@ function Recipes_Sec() {
   return (
     <>
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[24px] md:px-[100px] px-3 mt-16'>
-          {recipes.slice(0, 8).map((recipe) => (
+          {recipes.slice(0, 4).map((recipe) => (
             <Home_Card key={recipe.id} recipe= {recipe} />
           ))}
         </div>

@@ -6,6 +6,7 @@ import { IoIosLock } from "react-icons/io";
 import { IoLogOutSharp } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation , useNavigate } from 'react-router-dom';
+import Fav from './Fav';
 
 function Slider() {
   const dispatch = useDispatch()
@@ -15,6 +16,7 @@ function Slider() {
   const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
 
   const isAcount = location.pathname === '/Taba2/Profile/acount'
+  const isFav = location.pathname === '/Taba2/Profile/fav'
 
   const handleLogout = async () => {
     try {
@@ -47,13 +49,14 @@ function Slider() {
         <div className='space-y-1'>
           <button 
           className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isAcount && 'bg-[#F6B0B8]'}`}
-          onClick={() => !isAcount && navigate('/Taba2/Profile/acount')}
+          onClick={() => navigate('/Taba2/Profile/acount')}
           >
             <p>الحساب</p>
             <FaUser className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>
           </button>
           <button 
-          className='flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200'
+          className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isFav && 'bg-[#F6B0B8]'}`}
+          onClick={() => navigate('/Taba2/Profile/fav')}
           >
             <p>المفضله</p>
             <FaHeart className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>

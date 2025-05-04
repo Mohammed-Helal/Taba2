@@ -19,7 +19,7 @@ function Home_Card({ recipe }) {
           <div className="flex flex-col items-end gap-0.5">
             {recipe.name}
           </div>
-          <Share_Like />
+          <Share_Like recipe= {recipe}/>
         </div>
         <div>
           <img src={recipe.img_url} alt={recipe.name} className="rounded-[30px]" />

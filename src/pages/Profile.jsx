@@ -16,12 +16,10 @@ function Profile() {
   const user = useSelector((state) => state.auth.user)
   const dispatch = useDispatch()
   const location = useLocation()
-
-  const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
-  // console.log(isProfileSlider)
+  const navigate = useNavigate()
   
   const isAcount = location.pathname === '/Taba2/Profile/acount'
-  // console.log(location.pathname) 
+  const isFav = location.pathname === '/Taba2/Profile/fav'
 
   const handleLogout = async () => {
     try {
@@ -58,23 +56,27 @@ function Profile() {
             <div className='bg-white rounded-[40px] p-[24px] w-full space-y-1'>
               <button 
               className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isAcount && "bg-[#F6B0B8]"}`}
-              onClick={() => !isAcount && navigate('/Taba2/Profile/acount')}
+              onClick={() => navigate('/Taba2/Profile/acount')}
               >
                 <p>الحساب</p>
                 <FaUser className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>
               </button>
+              {/* fav */}
               <button 
-              className='flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200'
+              className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isFav && "bg-[#F6B0B8]"}`}
+              onClick={() => navigate('/Taba2/Profile/fav')}
               >
                 <p>المفضله</p>
                 <FaHeart className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>
               </button>
+              {/* security */}
               <button 
               className='flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200'
               >
                 <p>الأمان</p>
                 <IoIosLock className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>
               </button>
+              {/* logout */}
               <button 
               className='flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200'
               onClick={handleLogout}
