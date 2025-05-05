@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Home_Card from '@/components/Recipe/Home_Card.jsx'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAllFav } from '../../Store/Slices/fevSlice'
+import { getAuthCookies } from '@/Utils/auth.util.js'
 
 function Fav() {
-  const recipes = useSelector((state) => state.global.Fav)
-  console.log(recipes) 
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    const getCookies = getAuthCookies();
+    dispatch(fetchAllFav(getCookies.token))
+  }, [dispatch]);
+  
+
+
+  // console.log(favRecipes)
   return (
     <>
       <div>
@@ -17,11 +26,11 @@ function Fav() {
         <div>
           <p className='text-[24px] font-[500]'>الوصفات المفضلة</p>
           <div>
-            {
-              recipes.map((recipe) =>{
-                <Home_Card key={recipe.id} recipe= {recipe} />
+            {/* {
+              favRecipes.map((recipe) =>{
+                return <Home_Card key={recipe.id} recipe= {recipe} />
               })
-            }
+            } */}
           </div>
         </div>
       </div>

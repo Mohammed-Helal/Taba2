@@ -1,5 +1,5 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
-import { AddFev, isFav, DelFev } from "../../API/fevApi";
+import { AddFev, isFav, DelFev, getAllFev } from "../../API/fevApi";
 
 export const AddToFav = createAsyncThunk('Fav/AddToFav', async ({token, id}) =>{
   const response = await AddFev({token, id});
@@ -12,11 +12,15 @@ export const is_Fav = createAsyncThunk('Fav/isFav', async ({token, id}) =>{
 })
 
 
-export const DeleteFev = createAsyncThunk('Fav/DelFev', async ({token, id}) =>{
+export const DeleteFav = createAsyncThunk('Fav/DelFev', async ({token, id}) =>{
   const response = await DelFev({token, id});
   return response
 })
 
+export const fetchAllFav = createAsyncThunk ('Fav/fetchAllFav', async(token) => {
+  const response = await getAllFev(token)
+  return response;
+})
 
 
 const FavSlice = createSlice({
@@ -53,16 +57,28 @@ const FavSlice = createSlice({
       state.isFav = action.payload
       state.loading = false
     })
-    // DelFev
-    .addCase(DeleteFev.pending, (state) =>{
+    // DelFav
+    .addCase(DeleteFav.pending, (state) =>{
       state.loading = true
     })
-    .addCase(DeleteFev.fulfilled, (state, action)=> {
+    .addCase(DeleteFav.fulfilled, (state)=> {
       state.isFav = false
       state.loading = false
     })
-    .addCase(DeleteFev.rejected, (state, action)=> {
+    .addCase(DeleteFav.rejected, (state)=> {
       state.isFav = null
+      state.loading = false
+    })
+    // fetchAllfav
+    .addCase(fetchAllFav.pending, (state) =>{
+      state.loading = true
+    })
+    .addCase(fetchAllFav.fulfilled, (state, action)=> {
+      state.AllFav = action.payload
+      state.loading = false
+    })
+    .addCase(fetchAllFav.rejected, (state, action)=> {
+      state.AllFav = action.payload
       state.loading = false
     })
   }

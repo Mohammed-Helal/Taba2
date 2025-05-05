@@ -33,6 +33,9 @@ export default function Header() {
     if (location.pathname === '/Taba2' && linkRefs.recipes.current) {
       linkRefs.recipes.current.classList.add('text-black');
     }
+    if (location.pathname === '/Taba2/Profile/fav' && linkRefs.favorites.current) {
+      linkRefs.favorites.current.classList.add('text-black');
+    }
   }, [location.pathname]);
 
   return (
@@ -89,7 +92,7 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link ref={linkRefs.favorites} to="#" className="focus:outline-none hover:text-black">
+            <Link ref={linkRefs.favorites} to={ user? "/Taba2/Profile/fav": "/Taba2/auth/login"} className="focus:outline-none hover:text-black">
               المفضلة
             </Link>
           </li>

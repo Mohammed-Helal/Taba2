@@ -1,30 +1,31 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import { motion } from 'framer-motion'
 import Share from '@/assets/send.svg?react'
 import LikeDef from '@/assets/heart_def.svg?react'
 import LikeActive from '@/assets/heart_active.svg?react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AddToFav, is_Fav, DeleteFev } from '../Store/Slices/fevSlice'
-import Cookies from "js-cookie";
+import { AddToFav, is_Fav, DeleteFav } from '../Store/Slices/fevSlice'
 import { useNavigate } from 'react-router-dom'
+import { getAuthCookies } from '@/Utils/auth.util.js'
 
 // Motion-enabled SVGs
-const MotionShare = motion(Share)
-const MotionLikeDef = motion(LikeDef)
-const MotionLikeActive = motion(LikeActive)
+const MotionShare = motion.create(Share);
+const MotionLikeDef = motion.create(LikeDef);
+const MotionLikeActive = motion.create(LikeActive);
 
 function Share_Like({recipe}) {
   const [liked, setLiked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const id = recipe?.id;
-  const token = Cookies.get('token');
   const user = useSelector((state) => state.auth.user);
 
   // Check if the recipe is already a favorite
   useEffect(() => {
+    const authCookies = getAuthCookies()
+    const token = authCookies.token
+    const id = recipe.id
     if (token && id && user) {
       dispatch(is_Fav({ token, id }))
         .then((res) => {
@@ -34,7 +35,8 @@ function Share_Like({recipe}) {
           console.error('Error checking favorite:', err);
         });
     }
-  }, [dispatch, token, id, user]);
+  }, [dispatch, user]);
+
 
   const handleShare = () => {
     console.log('Share clicked:', recipe);
@@ -49,11 +51,14 @@ function Share_Like({recipe}) {
 
     setLiked((prev) => {
       const newLiked = !prev;
-
+      
+      const authCookies = getAuthCookies()
+      const token = authCookies.token
+      const id = recipe.id
       if (newLiked) {
         dispatch(AddToFav({ token, id }));
       } else {
-        dispatch(DeleteFev({ token, id }));
+        dispatch(DeleteFav({ token, id }));
       }
 
       return newLiked;
