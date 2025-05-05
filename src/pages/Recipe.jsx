@@ -35,21 +35,14 @@ const recipeInfo = {
 function Recipe() {
   const { id } = useParams()
   const dispatch = useDispatch()
-  const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchSingleRecipe(id)).then(res => {
-        setRecipe(res.payload.data);
-      });
+      dispatch(fetchSingleRecipe(id))
     }
   }, [dispatch, id]);
 
 
-
-
-
-  
   const [orderItems, setOrderItems] = useState([{
       id: recipeInfo.id,
       type: 'full',
@@ -92,7 +85,7 @@ function Recipe() {
           orderItems={orderItems}
           onQtyChange={handleQtyChange}
         />
-        <Recipe_Data recipe={recipeInfo} item={recipe} addToOrder={addToOrder} />
+        <Recipe_Data recipe={recipeInfo} addToOrder={addToOrder} />
       </div>
     </>
   );

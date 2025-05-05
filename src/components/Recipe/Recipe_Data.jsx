@@ -3,10 +3,13 @@ import { renderStars } from '@/Utils/function.util';
 import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
-function Recipe_Data({ recipe, addToOrder, item }) {
+function Recipe_Data({ recipe, addToOrder }) {
   const [ingredientsQty, setIngredientsQty] = useState(1);
   const [recipeQty, setRecipeQty] = useState(1);
+
+  const item = useSelector( (state) => state.recipes.SelectedRecipes)
 
   const incIngr = () => setIngredientsQty(q => q + 1);
   const decIngr = () => setIngredientsQty(q => Math.max(1, q - 1));
@@ -24,8 +27,8 @@ function Recipe_Data({ recipe, addToOrder, item }) {
           <Share_Like recipe = {item}/>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <h2 className="text-[24px] font-[700] max-w-[235px]">{recipe.title}</h2>
-          <p className="text-sm text-gray-500">{recipe.subtitle}</p>
+          <h2 className="text-[24px] font-[700] max-w-[235px]">{item.name}</h2>
+          {/* <p className="text-sm text-gray-500">{recipe.subtitle}</p> */}
           <div className="flex items-center gap-4 text-[#FFC300] flex-row-reverse">
             {renderStars(3)} <span className="text-[18px] text-black">(3)</span>
           </div>
@@ -59,13 +62,13 @@ function Recipe_Data({ recipe, addToOrder, item }) {
                     title: 'مقادير ' + recipe.title,
                     price: recipe.price,
                     qty: ingredientsQty,
-                    img: recipe.img
+                    img: item.img
                   })}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
                   <span>اطلب المقادير</span>
                   <span>|</span>
-                  <span>{ingredientsQty * recipe.price} ج.م</span>
+                  <span>{ingredientsQty * item.price} ج.م</span>
                 </button>
               </div>
 
@@ -78,12 +81,11 @@ function Recipe_Data({ recipe, addToOrder, item }) {
                 </div>
                 <button
                   onClick={() => addToOrder({
-                    id: recipe.id,
                     type: 'full',
-                    title: recipe.title,
+                    title: item.name,
                     price: recipe.fullPrice,
                     qty: recipeQty,
-                    img: recipe.img
+                    img: item.img
                   })}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
@@ -98,7 +100,7 @@ function Recipe_Data({ recipe, addToOrder, item }) {
           {/* صورة الوصفة */}
           <div className="w-full max-w-[350px] overflow-hidden">
             <img
-              src={recipe.img}
+              src={item.img}
               alt="Recipe"
               className="rounded-[40px] object-cover min-w-full max-w-[330px]"
             />

@@ -9,7 +9,7 @@ function Home_Card({ recipe }) {
   const navigate = useNavigate()
 
   return (
-    <div className="bg-[#F7F7F7] rounded-[15px] relative">
+    <div className="bg-[#F7F7F7] rounded-[15px] relative" dir='ltr'>
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40 rounded-[20px]"
         style={{ backgroundImage: `url(${Card_bg})` }}

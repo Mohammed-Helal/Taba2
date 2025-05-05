@@ -29,8 +29,13 @@ const FavSlice = createSlice({
     AllFav: [],
     AddedFav:[],
     isFav: null,
+    isClick: null,
     loading: false,
     error: null,
+  },reducers:{
+    FavClick: (state) =>{
+      state.isClick = !state.isClick
+    }
   },
   extraReducers: (builder) => {
   builder
@@ -54,7 +59,7 @@ const FavSlice = createSlice({
       state.loading = false
     })
     .addCase(is_Fav.rejected, (state, action)=> {
-      state.isFav = action.payload
+      state.error = action.payload
       state.loading = false
     })
     // DelFav
@@ -65,8 +70,8 @@ const FavSlice = createSlice({
       state.isFav = false
       state.loading = false
     })
-    .addCase(DeleteFav.rejected, (state)=> {
-      state.isFav = null
+    .addCase(DeleteFav.rejected, (state, action)=> {
+      state.error = action.payload
       state.loading = false
     })
     // fetchAllfav
@@ -74,14 +79,16 @@ const FavSlice = createSlice({
       state.loading = true
     })
     .addCase(fetchAllFav.fulfilled, (state, action)=> {
-      state.AllFav = action.payload
+      state.AllFav = action.payload.data.data
       state.loading = false
     })
     .addCase(fetchAllFav.rejected, (state, action)=> {
-      state.AllFav = action.payload
+      state.error = action.payload
       state.loading = false
     })
   }
 })
 
+
+export const {FavClick} = FavSlice.actions
 export default FavSlice.reducer

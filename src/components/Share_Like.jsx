@@ -5,7 +5,7 @@ import LikeDef from '@/assets/heart_def.svg?react'
 import LikeActive from '@/assets/heart_active.svg?react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AddToFav, is_Fav, DeleteFav } from '../Store/Slices/fevSlice'
+import { AddToFav, is_Fav, DeleteFav, FavClick } from '../Store/Slices/fevSlice'
 import { useNavigate } from 'react-router-dom'
 import { getAuthCookies } from '@/Utils/auth.util.js'
 
@@ -65,6 +65,9 @@ function Share_Like({recipe}) {
     });
   };
 
+  useEffect(() => {
+    dispatch(FavClick());
+  }, [liked]);
 
   return (
     <>

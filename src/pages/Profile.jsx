@@ -34,18 +34,18 @@ function Profile() {
   };
   
   return (
-    <>{ user &&
-      <div className='mx-[60px] space-y- h-screen'>
+    <>{ user && 
+      <div className={`mx-[60px] ${!isFav && 'h-screen'}`}>
         <div className="fixed inset-0 bg-[#E6E6E6] -z-10"/>
 
         <Slider />
 
-        <div className='flex items-center justify-center gap-[32px]'>
+        <div className='flex justify-center gap-[32px]'>
           
           <Outlet />
 
           {/* Right Section */}
-          <div className='space-y-[16px] md:w-[440px] mt-[16px] hidden md:block'>
+          <div className={`space-y-[16px] md:w-[440px] mt-[16px] hidden md:block ${isFav && "p-4"}`}>
             <div className='rounded-[40px] flex items-start gap-2 justify-end bg-white p-[24px]'>
               <div className=''>
                 <p className='text-[20px] font-[600] whitespace-nowrap'>أهلا محمد هلال</p>

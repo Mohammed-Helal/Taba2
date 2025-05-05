@@ -57,7 +57,7 @@ export const getAllFev = async (token) =>{
         Authorization: `Bearer ${token}`,
       }
     }) 
-    console.log(response)
+    // console.log(response)
     return response
   }catch(e){
     console.log("Failed Get Fav",e.message)
