@@ -8,6 +8,7 @@ import Auth from "./pages/Auth.jsx";
 import Signup_Sec from "./components/Auth/Signup_Sec.jsx";
 import Login_Sec from "./components/Auth/Login_Sec.jsx";
 import Recipe from "./pages/Recipe.jsx";
+import Cart from "./pages/Cart.jsx";
 import Profile from "./pages/Profile.jsx";
 import Acount from '@/components/Profile/Acount';
 import Fav from "./components/Profile/Fav.jsx";
@@ -22,8 +23,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'recipe',
+        path: 'recipe/:id',
         element: <Recipe />
+      },
+      {
+        path: 'cart',
+        element: <Cart />
       },
       {
         path: 'profile',

@@ -16,6 +16,7 @@ function Signup_Sec() {
   const [checked, setChecked] = useState(false);
   const [FormData, setFormData] = useState({
     name: "",
+    phone_number:"",
     password: "",
     password_confirmation: "",
   });
@@ -70,7 +71,7 @@ function Signup_Sec() {
     setIsLoading(true);
     try {
       // combine country code and rest
-      const payload = { ...FormData, phone_number: `+20${phoneRest}` };
+      const payload = { ...FormData, phone_number: phoneRest };
       const resultAction = await dispatch(register(payload));
       if (register.fulfilled.match(resultAction)) {
         navigate("/Taba2/auth/login");
@@ -92,7 +93,7 @@ function Signup_Sec() {
   return (
     <div
       style={{ zoom: '0.9' }}
-      className="lg:w-[38%] w-full flex flex-col justify-between items-center md:items-end bg-white lg:px-[64px] lg:py-[104px] px-10 py-24 rounded-[40px] h-full"
+      className="lg:w-[38%] w-full flex flex-col justify-between items-center md:items-end bg-white lg:px-[64px] lg:py-[px] px-10 py-9 rounded-[40px] h-full"
     >
       {/* Header */}
       <div>

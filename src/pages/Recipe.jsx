@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Recipe_Data from '../components/Recipe/Recipe_Data';
 import Recipe_Order from '../components/Recipe/Recipe_Order';
 import TestImg from '@/assets/images/Test.png';
+import { useDispatch } from 'react-redux';
+import { fetchSingleRecipe } from '../Store/Slices/recipesSlice';
+import { useParams } from 'react-router-dom';
 
 const recipeInfo = {
   id: 1,
@@ -30,14 +33,31 @@ const recipeInfo = {
 };
 
 function Recipe() {
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const [recipe, setRecipe] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSingleRecipe(id)).then(res => {
+        setRecipe(res.payload.data);
+      });
+    }
+  }, [dispatch, id]);
+
+
+
+
+
+  
   const [orderItems, setOrderItems] = useState([{
       id: recipeInfo.id,
-     type: 'full',
+      type: 'full',
       title: recipeInfo.title,
       price: recipeInfo.fullPrice,
       qty: 1,
       img: recipeInfo.img
-     }]);
+      }]);
 
   const addToOrder = (item) => {
     setOrderItems(prev => {
@@ -72,7 +92,7 @@ function Recipe() {
           orderItems={orderItems}
           onQtyChange={handleQtyChange}
         />
-        <Recipe_Data recipe={recipeInfo} addToOrder={addToOrder} />
+        <Recipe_Data recipe={recipeInfo} item={recipe} addToOrder={addToOrder} />
       </div>
     </>
   );

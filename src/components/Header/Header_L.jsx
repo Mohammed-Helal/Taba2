@@ -3,32 +3,16 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Logo from '/Taba2/src/assets/Logo.svg?react';
 import { IoIosSearch } from 'react-icons/io';
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
-import { fetchUser } from "@/Store/Slices/authSlice";
 import { FaRegUser } from "react-icons/fa";
 import { SlHandbag } from "react-icons/sl";
-import { Click_Profile } from '../../Store/Slices/globalSlice';
 
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
 
   
   const user = useSelector((state) => state.auth.user)
-  // console.log(user)
-
   const isProfilePage = location.pathname === "/Taba2/Profile/acount"
-
-  const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
-  
-  
-  useEffect(() =>{
-    const token = Cookies.get("token")
-      if(token){
-        dispatch(fetchUser(token))
-      } 
-  }, [dispatch])
 
 
   const linkRefs = {
@@ -65,7 +49,7 @@ export default function Header() {
             تسجيل دخول
           </button>
           <button
-            className="text-black text-[12px]/[14px] hover:bg-[#F6B0B8]"
+            className="text-black text-[12px]/[14px] hover:bg-[#F6B0B8] px-[24px] h-12 py-[8px] rounded-full"
             onClick={() => navigate('auth/signup')}
           >
             انشاء حساب

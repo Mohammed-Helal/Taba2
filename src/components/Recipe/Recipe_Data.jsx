@@ -4,7 +4,7 @@ import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-function Recipe_Data({ recipe, addToOrder }) {
+function Recipe_Data({ recipe, addToOrder, item }) {
   const [ingredientsQty, setIngredientsQty] = useState(1);
   const [recipeQty, setRecipeQty] = useState(1);
 
@@ -21,7 +21,7 @@ function Recipe_Data({ recipe, addToOrder }) {
           <button className="bg-primary text-white text-[15px] px-8 h-8  rounded-full whitespace-nowrap">
             تقييم الوصفة
           </button>
-          <Share_Like />
+          <Share_Like recipe = {item}/>
         </div>
         <div className="flex flex-col items-end gap-2">
           <h2 className="text-[24px] font-[700] max-w-[235px]">{recipe.title}</h2>

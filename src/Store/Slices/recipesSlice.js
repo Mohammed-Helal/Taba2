@@ -1,12 +1,10 @@
-// Store/productsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  getAllCats,
-  getSingleProduct,
+  getSingleRecipe,
   getAllRecipes
 } from "@/API/recipesApi";
 
-// Async thunk to fetch all products
+// Async thunk to fetch all recipes
 export const fetchAllRecipes = createAsyncThunk(
   "Recipes/fetchAllRecipes",
   async () => {
@@ -15,21 +13,13 @@ export const fetchAllRecipes = createAsyncThunk(
   }
 );
 
-// Async thunk to fetch all categories
-export const fetchAllCategories = createAsyncThunk(
-  "products/fetchAllCategories",
-  async () => {
-    const categories = await getAllCats();
-    return categories;
-  }
-);
 
-// Async thunk to fetch a single product
-export const fetchSingleProduct = createAsyncThunk(
+// Async thunk to fetch a single recipe
+export const fetchSingleRecipe = createAsyncThunk(
   "products/fetchSingleProduct",
   async (id) => {
-    const product = await getSingleProduct(id);
-    return product;
+    const recipe = await getSingleRecipe(id);
+    return recipe;
   }
 );
 
@@ -69,25 +59,15 @@ const recipesSlice = createSlice({
         state.error = action.error.message;
         state.isLoading = false;
       })
-      .addCase(fetchAllCategories.pending, (state) => {
+
+      .addCase(fetchSingleRecipe.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchAllCategories.fulfilled, (state, action) => {
-        state.categories = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(fetchAllCategories.rejected, (state, action) => {
-        state.error = action.error.message;
-        state.isLoading = false;
-      })
-      .addCase(fetchSingleProduct.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
+      .addCase(fetchSingleRecipe.fulfilled, (state, action) => {
         state.SelectedRecipes = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchSingleProduct.rejected, (state, action) => {
+      .addCase(fetchSingleRecipe.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
       });

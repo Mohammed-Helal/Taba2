@@ -6,9 +6,7 @@ import { registerUser, getCurrentUser, loginUser} from "@/API/authApi";
 export const login = createAsyncThunk(
   "/auth/login",
   async (FormData) => {
-    console.log("in slice");
     const user = await loginUser(FormData);
-    console.log("slice end");
     return user;
   }
 );
@@ -17,16 +15,14 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
   "/auth/register",
   async (FormData) => {
-    console.log("in slice");
     const user = await registerUser(FormData);
-    console.log("slice end");
     return user;
   }
 );
 
 // Async thunk for fetching current user
-export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
-  const response = await getCurrentUser(token);
+export const fetchUser = createAsyncThunk("auth/fetchUser", async ({token, id}) => {
+  const response = await getCurrentUser({token, id});
   return response;
 });
 

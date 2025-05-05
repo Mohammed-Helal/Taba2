@@ -3,8 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Logo from '/Taba2/src/assets/Logo.svg?react';
 import { IoIosSearch } from 'react-icons/io';
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
-import { fetchUser } from "@/Store/Slices/authSlice";
 import { FaRegUser } from "react-icons/fa";
 import { SlHandbag } from "react-icons/sl";
 import { IoMdList } from "react-icons/io";
@@ -16,19 +14,11 @@ function Header_S() {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.auth.user)
-  // console.log(user)
   
   const isProfilePage = location.pathname === "/Taba2/Profile/acount"
-
+  
   const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
-
-  useEffect(() =>{
-    const token = Cookies.get("token")
-      if(token){
-        dispatch(fetchUser(token))
-      } 
-  }, [dispatch])
-
+  
 
   const linkRefs = {
     contact: useRef(null),
@@ -59,13 +49,13 @@ function Header_S() {
         !user?
         <div className="flex space-x-[16px] items-center font-[600] text-[12px]">
           <button
-            className="rounded-full bg-primary text-white px-[24px] h-12 py-[8px]"
+            className="rounded-full bg-primary text-white px-[8px] h-12 py-[8px] text-[12px] hover:bg-[#F6B0B8]"
             onClick={() => navigate('auth/login')}
           >
             تسجيل دخول
           </button>
           <button
-            className="text-black"
+            className="text-black text-[12px]/[14px] hover:bg-[#F6B0B8] px-[8px] h-12 py-[8px] rounded-full"
             onClick={() => navigate('auth/signup')}
           >
             انشاء حساب
@@ -99,7 +89,7 @@ function Header_S() {
         <div className="relative flex flex-1 max-w-[500px]">
           <input
             type="text"
-            className="mr-2 pl-12 pr-4 h-10 w-full bg-[#F3F3F6] rounded-full border border-gray-300 placeholder:text-black placeholder:text-[14px] focus:outline-none text-right"
+            className="mr-2 pl-12 pr-4 h-10 w-full bg-[#F3F3F6] rounded-full border border-gray-300 placeholder:text-black placeholder:text-[12px] focus:outline-none text-right"
             placeholder="نفسك في ايه؟"
           />
           <IoIosSearch

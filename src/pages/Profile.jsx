@@ -34,7 +34,7 @@ function Profile() {
   };
   
   return (
-    <>
+    <>{ user &&
       <div className='mx-[60px] space-y- h-screen'>
         <div className="fixed inset-0 bg-[#E6E6E6] -z-10"/>
 
@@ -88,6 +88,7 @@ function Profile() {
           </div>
         </div>
       </div>
+      }
     </>
   )
 }

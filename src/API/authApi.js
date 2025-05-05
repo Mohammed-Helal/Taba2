@@ -1,4 +1,3 @@
-import axiosInstance from "./axiosInstance";
 import Cookies from "js-cookie";
 
 export const registerUser = async ({name, phone_number, password, password_confirmation}) => {
@@ -23,7 +22,7 @@ export const registerUser = async ({name, phone_number, password, password_confi
       throw new Error(data.message || "Registration failed");
     }
 
-    return data.user;
+    return data;
   } catch (error) {
     console.error("Register error:", error.message); 
     throw new Error(`Register failed: ${error.message}`);
@@ -50,8 +49,8 @@ export const loginUser = async ({phone_number, password}) =>{
     }
 
     const data = await response.json();
-
-    Cookies.set("token", data.user.token, {expires: 0.5})
+    Cookies.set("token", data.token, {expires: 0.5})
+    Cookies.set("id", data.user.id, {expires: 0.5})
     return data.user
   }catch (error){
     console.error(error.message)
@@ -59,26 +58,11 @@ export const loginUser = async ({phone_number, password}) =>{
   }
 }
 
-
-export const getCurrentUse = async (token) => {
-  try {
-    const response = await axiosInstance.get(`user/${response.user.id} `,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.user;
-  } catch (error) {
-    console.error("Get current user error:", error.message);
-    throw new Error(`Fetching user failed: ${error.message}`);
-  }
-};
-
-export const getCurrentUser = async (token) => {
+export const getCurrentUser = async ({token, id}) => {
   try{
-    const response = await fetch('http://127.0.0.1:8000/api/users/me',{
+    const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`,{
+      method:'get',
       headers:{
-        method:'get',
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
         "Content-Type": "application/json",

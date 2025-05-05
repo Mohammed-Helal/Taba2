@@ -14,21 +14,30 @@ function Home_Card({ recipe }) {
         className="absolute inset-0 bg-cover bg-center opacity-40 rounded-[20px]"
         style={{ backgroundImage: `url(${Card_bg})` }}
       />
-      <div className="p-[14px] flex flex-col justify-center gap-[32px] relative z-9">
-        <div className="self-stretch flex justify-between items-center flex-row-reverse">
-          <div className="flex flex-col items-end gap-0.5">
-            {recipe.name}
+      
+      <div className="p-[14px] flex flex-col justify-between gap-[24px] relative z-9 h-full min-h-[350px]">
+        {/* title and like */}
+        <div className="flex justify-between items-start flex-row-reverse flex-wrap gap-3">
+          <div className="flex flex-col items-end text-right  break-words xl:max-w-[70%] lg:w-full">
+            <p className="text-[18px] font-semibold">{recipe.name}</p>
           </div>
-          <Share_Like recipe= {recipe}/>
+          <Share_Like key= {recipe.id} recipe={recipe}/>
         </div>
-        <div>
-          <img src={recipe.img_url} alt={recipe.name} className="rounded-[30px]" />
+
+        {/* Photo */}
+        <div className="flex-grow flex justify-center items-center">
+          <img
+            src={recipe.img_url}
+            alt={recipe.name}
+            className="rounded-[30px] max-w-full h-auto"
+          />
         </div>
-        {/* edited line 57: changed to motion.button and added whileHover color change */}
+
+        {/* button */}
         <motion.button
           whileHover={{ backgroundColor: '#F6B0B8' }}
-          className="flex justify-between items-center bg-primary rounded-full pl-1.5 pr-3 py-1 text-white"
-          onClick={() => navigate('recipe')}
+          className="w-full flex justify-between items-center bg-primary rounded-full pl-1.5 pr-3 py-1 text-white"
+          onClick={() => navigate(`recipe/${recipe.id}`)}
         >
           <span className="flex justify-center items-center w-7 h-7 bg-white rounded-full">
             <Btn_Card_i className="w-4 h-4" />

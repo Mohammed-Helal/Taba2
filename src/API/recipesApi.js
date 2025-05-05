@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-// Get all products with an optional limit
+
 export const getAllRecipes = async () => {
   try {
     const response = await fetch('http://127.0.0.1:8000/api/recipes', {
@@ -25,22 +25,19 @@ export const getAllRecipes = async () => {
 };
 
 
-// Get all product categories
-export const getAllCats = async () => {
-  try {
-    const response = await axiosInstance.get("/products/category-list");
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response ? error.response.data : error.message);
-  }
-};
-
 // Get a single product by its ID
-export const getSingleProduct = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/products/${id}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response ? error.response.data : error.message);
+export const getSingleRecipe = async (id) => {
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/api/recipes/${id}`,{
+      method: 'Get',
+      headers:{
+        Accept: "application/json"
+      }
+    })
+    const data = await response.json()
+
+    return data
+  }catch(e){
+    console.log(e.message)
   }
-};
+}

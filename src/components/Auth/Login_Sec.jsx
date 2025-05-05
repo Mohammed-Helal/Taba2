@@ -82,7 +82,7 @@ function Signup_Sec() {
                 onBlur={() => setTouched({ ...touched, phone_number: true })}
                 />
                 {touched.phone_number && errorPhone && (
-                  <p className="text-red-500 text-xs absolute left-0 bottom-[-18px]">يجب أن يكون الرقم 11 رقماً</p>
+                <p className="text-red-500 text-xs absolute left-0 bottom-[-18px]">يجب أن يكون الرقم 11 رقماً</p>
                 )}
             </div>
 
