@@ -4,7 +4,7 @@ import Catshap from '@/assets/images/Catshap.png';
 
 function Recipe_Extra() {
   return (
-    <div className="border-dashed border-gray-400 border-2 rounded-[10px] p-4 flex items-center justify-between gap-3 text-right min-w-[217px] max-w-full">
+    <div className="border-dashed border-gray-400 border-2 rounded-[10px] p-4 flex flex-grow items-center justify-between gap-3 text-right min-w-[217px] w-full">
       <div className="flex flex-col">
         <p className="font-semibold">كاتشب حار</p>
         <span className="text-[12px] text-gray-500">50 gm</span>

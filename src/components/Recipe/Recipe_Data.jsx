@@ -116,7 +116,7 @@ function Recipe_Data({ recipe, addToOrder }) {
             {/* الترشيحات */}
             <div className="space-y-4 w-full">
               <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-              <div className="grid gap-8 md:grid-cols-2 grid-cols-1 flex-row w-full justify-center">
+              <div className="flex flex-row w-full">
                 <Recipe_Extra />
                 <Recipe_Extra />
                 <Recipe_Extra />
