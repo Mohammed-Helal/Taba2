@@ -11,13 +11,15 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch()
+  const {token, id} = getAuthCookies()
+  // console.log({token, id})
   
-  useEffect(() =>{
-    const authCookies = getAuthCookies()
-    if(authCookies){
-      dispatch(fetchUser(authCookies))
+  useEffect(() => {
+    if (token && id) {
+      dispatch(fetchUser({ token, id }));
     }
-  }, [dispatch])
+  }, [dispatch, token, id]);
+  
   return (
     <>
       <Header_S />

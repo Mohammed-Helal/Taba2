@@ -29,6 +29,7 @@ function Profile() {
     }
     dispatch(logout());
     Cookies.remove("token");
+    Cookies.remove("id")
     navigate("/Taba2");
     window.location.reload();
   };

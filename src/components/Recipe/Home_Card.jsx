@@ -27,7 +27,7 @@ function Home_Card({ recipe }) {
         {/* Photo */}
         <div className="flex-grow flex justify-center items-center">
           <img
-            src={recipe.img_url}
+            src= {recipe.image_url}
             alt={recipe.name}
             className="rounded-[30px] max-w-full h-auto"
           />

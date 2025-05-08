@@ -6,12 +6,15 @@ import { IoIosLock } from "react-icons/io";
 import { IoLogOutSharp } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation , useNavigate } from 'react-router-dom';
-import Fav from './Fav';
+import { Click_Profile } from '../../Store/Slices/globalSlice';
+import { logout } from '@/Store/Slices/authSlice'
+import { logout_1 } from '@/API/authApi'
+import Cookies from "js-cookie";
 
 function Slider() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const Location = useLocation()
+  const location = useLocation()
 
   const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
 
@@ -26,6 +29,7 @@ function Slider() {
     }
     dispatch(logout());
     Cookies.remove("token");
+    Cookies.remove("id")
     navigate("/Taba2");
     window.location.reload();
   };
@@ -49,14 +53,20 @@ function Slider() {
         <div className='space-y-1'>
           <button 
           className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isAcount && 'bg-[#F6B0B8]'}`}
-          onClick={() => navigate('/Taba2/Profile/acount')}
+          onClick={() => {
+            navigate('/Taba2/Profile/acount')
+            dispatch(Click_Profile())
+          }}
           >
             <p>الحساب</p>
             <FaUser className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>
           </button>
           <button 
           className={`flex justify-end items-center gap-3 w-full rounded-[40px] p-[10px] hover:bg-[#F6B0B8] duration-200 ${isFav && 'bg-[#F6B0B8]'}`}
-          onClick={() => navigate('/Taba2/Profile/fav')}
+          onClick={() =>{
+            navigate('/Taba2/Profile/fav')
+            dispatch(Click_Profile())
+          }}
           >
             <p>المفضله</p>
             <FaHeart className='rounded-full border-2 border-black p-1 size-[24px] fill-primary '/>

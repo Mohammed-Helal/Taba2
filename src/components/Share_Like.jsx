@@ -23,19 +23,20 @@ function Share_Like({recipe}) {
 
   // Check if the recipe is already a favorite
   useEffect(() => {
-    const authCookies = getAuthCookies()
-    const token = authCookies.token
-    const id = recipe.id
-    if (token && id && user) {
-      dispatch(is_Fav({ token, id }))
-        .then((res) => {
-          if (res.payload === true) setLiked(true);
-        })
-        .catch((err) => {
-          console.error('Error checking favorite:', err);
-        });
-    }
-  }, [dispatch, user]);
+    const authCookies = getAuthCookies();
+    const token = authCookies?.token;
+    const id = recipe?.id;
+  
+    if (!token || !id || !user) return;
+  
+    dispatch(is_Fav({ token, id }))
+      .then((res) => {
+        if (res.payload === true) setLiked(true);
+      })
+      .catch((err) => {
+        console.error('Error checking favorite:', err);
+      });
+  }, [dispatch, user, recipe]);
 
 
   const handleShare = () => {
@@ -57,7 +58,7 @@ function Share_Like({recipe}) {
       const id = recipe.id
       if (newLiked) {
         dispatch(AddToFav({ token, id }));
-      } else {
+      } else if (token) {
         dispatch(DeleteFav({ token, id }));
       }
 

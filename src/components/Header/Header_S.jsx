@@ -15,7 +15,7 @@ function Header_S() {
 
   const user = useSelector((state) => state.auth.user)
   
-  const isProfilePage = location.pathname === "/Taba2/Profile/acount"
+  const isProfilePage = location.pathname
   
   const isProfileSlider = useSelector((state) => state.global.isProfileSlider)
   
@@ -36,6 +36,9 @@ function Header_S() {
     // Highlight current
     if (location.pathname === '/Taba2' && linkRefs.recipes.current) {
       linkRefs.recipes.current.classList.add('text-black');
+    }
+    if (location.pathname === '/Taba2/Profile/fav' && linkRefs.favorites.current) {
+      linkRefs.favorites.current.classList.add('text-black');
     }
   }, [location.pathname]);
 
@@ -65,7 +68,7 @@ function Header_S() {
         <div
         className="flex space-x-[16px] items-center lg:col-span-3 font-[600]  text-white text-[16px]"
         >
-          {isProfilePage &&
+          {isProfilePage.includes('Profile') &&
             <button 
             className={`hover:text-[#F6B0B8] ${isProfileSlider? 'text-[#F6B0B8]': 'text-primary'} text-primary text-[30px]`}
             onClick={() => dispatch(Click_Profile())}
@@ -76,7 +79,7 @@ function Header_S() {
           <button className='bg-primary rounded-full p-3 hover:bg-[#F6B0B8]'>
             <SlHandbag />
           </button>
-          {!isProfilePage &&
+          {!isProfilePage.includes('Profile') &&
           <button className='bg-primary rounded-full p-3 hover:text-[#F6B0B8]' onClick={() => navigate('/Taba2/Profile/acount')}>
             <FaRegUser />
           </button>
@@ -123,7 +126,7 @@ function Header_S() {
             </Link>
           </li>
           <li>
-            <Link ref={linkRefs.favorites} to="#" className="focus:outline-none hover:text-black">
+            <Link ref={linkRefs.favorites} to={user?'/Taba2/Profile/fav' : '/Taba2/auth/login'} className="focus:outline-none hover:text-black">
               المفضلة
             </Link>
           </li>

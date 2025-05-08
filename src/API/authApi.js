@@ -41,13 +41,15 @@ export const loginUser = async ({phone_number, password}) =>{
 
 export const getCurrentUser = async ({token, id}) => {
   try{
-    const respnse = await api (`users/${id}`, {
-      method:'get',
-      header:{
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    return respnse;
+    if(token){
+      const respnse = await api (`users/${id}`, {
+        method:'get',
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      return respnse;
+    }
   }catch(error){
     console.error("Get current user error:", error.message);
     throw new Error(`Fetching user failed: ${error.message}`);

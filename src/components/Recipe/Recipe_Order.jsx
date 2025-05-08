@@ -4,6 +4,7 @@ import XLSline from '@/assets/Line_XLS.svg?react'
 import Box from '@/assets/box.svg?react'
 import Bag from '@/assets/shopping-bag.svg?react'
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 function Recipe_Order({ orderItems, onQtyChange, deliveryFee = 30 }) {
   if (orderItems.length === 0) return null;
@@ -19,6 +20,10 @@ function Recipe_Order({ orderItems, onQtyChange, deliveryFee = 30 }) {
   const renderItem = (item) => {
     const isOnlyItem = orderItems.length === 1;
     const disableMinus = isOnlyItem && item.qty === 1;
+
+/////////////////////////////////////////////////////////////////////////////////
+
+    const recipe = useSelector((state) => state.recipes.SelectedRecipes)  
 
     return (
       <div

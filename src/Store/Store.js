@@ -5,6 +5,7 @@ import recipesReducer from "./Slices/recipesSlice";
 import cartReducer from "./Slices/cartSlice";
 import globalReducer from "./Slices/globalSlice";
 import FavReducer from "@/Store/Slices/fevSlice.js";
+import OrderReducer from "@/Store/Slices/orderSlice.js"
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
     recipes: recipesReducer,
     cart: cartReducer,
     global: globalReducer,  
-    Fav: FavReducer
+    Fav: FavReducer,
+    Order: OrderReducer,
   },
 });
 

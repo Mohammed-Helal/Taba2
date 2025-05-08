@@ -5,6 +5,7 @@ import TestImg from '@/assets/images/Test.png';
 import { useDispatch } from 'react-redux';
 import { fetchSingleRecipe } from '../Store/Slices/recipesSlice';
 import { useParams } from 'react-router-dom';
+import Payment from './Payment';
 
 const recipeInfo = {
   id: 1,
@@ -40,7 +41,7 @@ function Recipe() {
     if (id) {
       dispatch(fetchSingleRecipe(id))
     }
-  }, [dispatch, id]);
+  }, [id]);
 
 
   const [orderItems, setOrderItems] = useState([{
@@ -76,6 +77,7 @@ function Recipe() {
 
   return (
     <>
+      <Payment />
       <div className="fixed inset-0 bg-[#E6E6E6] -z-10" />
       <div 
       style={{ zoom: '0.8', transformOrigin: 'top right' }} 

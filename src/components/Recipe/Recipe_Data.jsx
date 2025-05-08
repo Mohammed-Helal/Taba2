@@ -1,20 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { renderStars } from '@/Utils/function.util';
 import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuthCookies } from '@/Utils/auth.util.js'
+import { FetchAllOrder, AddNewOrder, DeleteOneOrder } from '../../Store/Slices/orderSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Recipe_Data({ recipe, addToOrder }) {
   const [ingredientsQty, setIngredientsQty] = useState(1);
   const [recipeQty, setRecipeQty] = useState(1);
 
-  const item = useSelector( (state) => state.recipes.SelectedRecipes)
 
   const incIngr = () => setIngredientsQty(q => q + 1);
   const decIngr = () => setIngredientsQty(q => Math.max(1, q - 1));
   const incRec = () => setRecipeQty(q => q + 1);
   const decRec = () => setRecipeQty(q => Math.max(1, q - 1));
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const {token, id} = getAuthCookies()
+  const item = useSelector((state) => state.recipes.SelectedRecipes)
+  // useEffect(()=>{
+  //   if(token){
+  //     dispatch(FetchAllOrder(token))
+  //       .then((res)=> {
+  //         const order =res.payload
+  //         console.log (order)
+  //       })
+  //   }
+  // }, [dispatch])
+  
 
   return (
     <div className="text-right bg-white rounded-[40px] my-4 p-8 flex flex-col gap-6 w-full items-end">
@@ -40,30 +61,38 @@ function Recipe_Data({ recipe, addToOrder }) {
         {/* القسم الأيمن: المقادير والصورة */}
         <div className="flex flex-col-reverse lg:flex-row lg:justify-center items-center gap-8 order-1 min-w-fit justify-end">
           <div className="flex flex-col md:flex-row-reverse gap-4 lg:flex-col text-right md:gap-[90px] lg:gap-[16px] min-w-fit items-end text-sm/6 ">
-              <div className="space-y-2">
-                <p className="text-[20px] font-[700]">المقادير</p>
-                {recipe.ingredients.map((item, idx) => (
-                  <p key={idx} className="text-[16px]" dir="rtl">{item}</p>
-                ))}
-              </div>
+            <div className="space-y-2">
+              <p className="text-[20px] font-[700]">المقادير</p>
+                {item.ingredients && item.ingredients.map((ing) => (
+              <p key={ing.id} className="text-[16px]" dir="rtl">{ing.name} {ing.unit} {ing.price}</p>
+              ))}
+            </div>
 
             <div className='flex-col lg:flex-col flex gap-4 md:gap-[10px] lg:gap-4'>
               {/* زر المقادير */}
               <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
                 <div className="flex items-center gap-2">
-                  <button onClick={decIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
+                  <button onClick= {() => {
+                    if(token) {
+                      decIngr(); 
+                    }
+                    navigate('/Taba2/auth/login')
+                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
                   <span className="text-lg font-semibold">{ingredientsQty}</span>
-                  <button onClick={incIngr} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                  <button onClick= {() => {
+                    if(token) {
+                      incIngr(); 
+                    }
+                    navigate('/Taba2/auth/login')
+                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
                 </div>
                 <button
-                  onClick={() => addToOrder({
-                    id: recipe.id,
-                    type: 'ingredients',
-                    title: 'مقادير ' + recipe.title,
-                    price: recipe.price,
-                    qty: ingredientsQty,
-                    img: item.img
-                  })}
+                  onClick={() => {
+                    if(token){
+                      incRec();
+                    }
+                    navigate('/Taba2/auth/login')
+                  }}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
                   <span>اطلب المقادير</span>
@@ -75,18 +104,34 @@ function Recipe_Data({ recipe, addToOrder }) {
               {/* زر الوصفة */}
               <div className="flex justify-between  gap-2">
                 <div className="flex items-center gap-2">
-                  <button onClick={decRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
+                  <button onClick={() => {
+                    if (token) {
+                      decRec();
+                      dispatch(DeleteOneOrder({ token, id: item.id, q: 1 }));
+                    }
+                    navigate('/Taba2/auth/login')
+                  }} 
+                  className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs">
+                  <FaMinus size={6} /></button>
                   <span className="text-lg font-semibold">{recipeQty}</span>
-                  <button onClick={incRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                  <button onClick= {() => {
+                    if(token) {
+                      incRec(); 
+                      dispatch(AddNewOrder({ token, id: item.id, q: 1 }))
+                    }
+                    navigate('/Taba2/auth/login')
+                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
                 </div>
                 <button
-                  onClick={() => addToOrder({
-                    type: 'full',
-                    title: item.name,
-                    price: recipe.fullPrice,
-                    qty: recipeQty,
-                    img: item.img
-                  })}
+                  onClick={() => {
+                    if(token){
+                      incRec();
+                      dispatch(AddNewOrder({token, id: item.id, q:1}))
+                    }
+                    else{
+                      navigate('/Taba2/auth/login')
+                    }
+                  }}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
                   <span>اطلب الوصفه</span>
@@ -100,7 +145,7 @@ function Recipe_Data({ recipe, addToOrder }) {
           {/* صورة الوصفة */}
           <div className="w-full max-w-[350px] overflow-hidden">
             <img
-              src={item.img}
+              src={item.image_url}
               alt="Recipe"
               className="rounded-[40px] object-cover min-w-full max-w-[330px]"
             />

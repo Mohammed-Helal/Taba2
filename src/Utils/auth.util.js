@@ -6,5 +6,5 @@ export const getAuthCookies = () => {
   if (token?.trim() && id?.trim()) {
     return { token, id };
   }
-  return null;
+  return {}
 };
