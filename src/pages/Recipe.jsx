@@ -77,7 +77,7 @@ function Recipe() {
 
   return (
     <>
-      <Payment />
+      {/* <Payment /> */}
       <div className="fixed inset-0 bg-[#E6E6E6] -z-10" />
       <div 
       style={{ zoom: '0.8', transformOrigin: 'top right' }} 

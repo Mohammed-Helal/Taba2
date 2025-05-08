@@ -12,6 +12,7 @@ import Cart from "./pages/Cart.jsx";
 import Profile from "./pages/Profile.jsx";
 import Acount from '@/components/Profile/Acount';
 import Fav from "./components/Profile/Fav.jsx";
+import Payment from "./pages/Payment.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />
+      },
+      {
+        path: 'paymen',
+        element: <Payment />
       },
       {
         path: 'profile',
