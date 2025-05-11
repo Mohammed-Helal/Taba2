@@ -28,7 +28,6 @@ export const loginUser = async ({phone_number, password}) =>{
         password
       },
     })
-    
     Cookies.set("token", response.token, {expires: 0.5})
     Cookies.set("id", response.user.id, {expires: 0.5})
     return response;

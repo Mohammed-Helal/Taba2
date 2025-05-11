@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, setTimeout } from 'react';
 import { renderStars } from '@/Utils/function.util';
 import Share_Like from '@/components/Share_Like';
 import Recipe_Extra from './Recipe_Extra';
@@ -6,35 +6,124 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthCookies } from '@/Utils/auth.util.js'
-import { FetchAllOrder, AddNewOrder, DeleteOneOrder } from '../../Store/Slices/orderSlice';
+import { AddNewOrder, DeleteOneOrder, FetchOneOrder, UpdateOrderD, FetchAllOrder } from '../../Store/Slices/orderSlice';
 import { useNavigate } from 'react-router-dom';
 
-function Recipe_Data({ recipe, addToOrder }) {
-  const [ingredientsQty, setIngredientsQty] = useState(1);
-  const [recipeQty, setRecipeQty] = useState(1);
-
-
-  const incIngr = () => setIngredientsQty(q => q + 1);
-  const decIngr = () => setIngredientsQty(q => Math.max(1, q - 1));
-  const incRec = () => setRecipeQty(q => q + 1);
-  const decRec = () => setRecipeQty(q => Math.max(1, q - 1));
-
-
-//////////////////////////////////////////////////////////////////////////////////////////
-  
+function Recipe_Data({recipe}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {token, id} = getAuthCookies()
+  
   const item = useSelector((state) => state.recipes.SelectedRecipes)
-  // useEffect(()=>{
-  //   if(token){
-  //     dispatch(FetchAllOrder(token))
-  //       .then((res)=> {
-  //         const order =res.payload
-  //         console.log (order)
-  //       })
+  const AllOrder = useSelector((state) => state.Order.AllOrder)
+  const CurrentOrder = useSelector((state) => state.Order.currentOrder)
+  const existingOrder = AllOrder?.find(order => order.recipe_id === item.id);
+  
+  
+  useEffect(()=>{
+    const loadingOrder = async() =>{
+      if (existingOrder && token) {
+        try {
+          await dispatch(FetchOneOrder({ token, id: existingOrder.id })).unwrap
+        } catch (e) {
+          console.error("Failed to fetch order", e);
+        }
+      }  
+      else{
+        console.log("can't")
+      }
+    }
+    loadingOrder()
+  }, [dispatch, existingOrder, token])
+
+//   const handleAddRec = async () => {
+//     if (existingOrder) {
+//         console.log("Order already exists");
+//         return;
+//     } else if (CurrentOrder?.recipe_quantity === 0) {
+//         try {
+//             await dispatch(AddNewOrder({ token, id: item.id, Rq: 1 })).unwrap();
+//             dispatch(FetchAllOrder(token));
+//         } catch (e) {
+//             console.log("Adding order failed", e);
+//         }
+//     } else {
+//         console.log("No current order found");
+//     }
+// };
+
+
+  const handleDecRec = () =>{
+    if (token) {
+      if (CurrentOrder.recipe_quantity > 1){
+        dispatch(UpdateOrderD({token, id: CurrentOrder.id, u: {"recipe_quantity": CurrentOrder.recipe_quantity - 1}}))
+      }else if(CurrentOrder.ingredients_quantity === 0 && CurrentOrder.recipe_quantity === 1 ){
+        dispatch(DeleteOneOrder({token, id: CurrentOrder.id, Iq: 1}))
+        dispatch(FetchAllOrder(token))
+      }else if (CurrentOrder.recipe_quantity > 1 && CurrentOrder.recipe_quantity > 1) {
+        dispatch(UpdateOrderD({ token, id: CurrentOrder.id, u: { "recipe_quantity": CurrentOrder.recipe_quantity - 1} }));
+      }
+    }else{
+    navigate('/Taba2/auth/login')
+    }
+  }
+
+  const handleIncRec = () =>{
+    if (token) {
+      if (existingOrder){
+        dispatch(UpdateOrderD({token, id: CurrentOrder.id, u: {"recipe_quantity": CurrentOrder.recipe_quantity + 1}}))
+      }else if (CurrentOrder){
+        dispatch(AddNewOrder({ token, id: item.id, Rq: 1 }))
+        dispatch(FetchAllOrder(token))
+      }
+    }else{
+    navigate('/Taba2/auth/login')
+    }
+  }
+
+  // const handleAddIng = async () => {
+  //   if (existingOrder) {
+  //     console.log("Order already exists");
+  //     return;
+  //   } else if (CurrentOrder?.ingredients_quantity === 0) {
+  //     try {
+  //       await dispatch(UpdateOrderD({ token, id: CurrentOrder.id, u: { "ingredients_quantity": CurrentOrder.ingredients_quantity + 1 } })).unwrap();
+  //       dispatch(FetchAllOrder(token));
+  //     } catch (e) {
+  //       console.log("Adding order failed", e);
+  //     }
+  //   } else {
+  //     console.log("No current order found");
   //   }
-  // }, [dispatch])
+  // };
+
+  const handleDecIng = () =>{
+    if (token) {
+      if (CurrentOrder.ingredients_quantity > 1){
+        dispatch(UpdateOrderD({token, id: CurrentOrder.id, u: {"ingredients_quantity": CurrentOrder.ingredients_quantity - 1}}));
+      }else if(CurrentOrder.ingredients_quantity === 1 && CurrentOrder.recipe_quantity === 0 ){
+        dispatch(DeleteOneOrder({token, id: CurrentOrder.id, Iq: 1}))
+        dispatch(FetchAllOrder(token))
+      }else if (CurrentOrder.recipe_quantity > 0 && CurrentOrder.recipe_quantity > 0) {
+        dispatch(UpdateOrderD({ token, id: CurrentOrder.id, u: { "ingredients_quantity": CurrentOrder.ingredients_quantity - 1} }));
+      }
+    }else{
+      navigate('/Taba2/auth/login')
+    }
+  }
+
+  const handleIncIng = () =>{
+    if (token) {
+      if (existingOrder){
+        dispatch(UpdateOrderD({token, id: CurrentOrder.id, u: {"ingredients_quantity": CurrentOrder.ingredients_quantity + 1}}))
+      }else if (CurrentOrder){
+        dispatch(AddNewOrder({ token, id: item.id, Iq: 1 }))
+        dispatch(FetchAllOrder(token))
+      }
+    }else{
+    navigate('/Taba2/auth/login')
+    }
+  }
   
 
   return (
@@ -64,7 +153,7 @@ function Recipe_Data({ recipe, addToOrder }) {
             <div className="space-y-2">
               <p className="text-[20px] font-[700]">المقادير</p>
                 {item.ingredients && item.ingredients.map((ing) => (
-              <p key={ing.id} className="text-[16px]" dir="rtl">{ing.name} {ing.unit} {ing.price}</p>
+              <p key={ing.id} className="text-[16px]" dir="rtl">{ing.cost_per_unit} {ing.unit} {ing.name}</p>
               ))}
             </div>
 
@@ -72,71 +161,36 @@ function Recipe_Data({ recipe, addToOrder }) {
               {/* زر المقادير */}
               <div className="flex justify-between items-center mt-2 flex-wrap gap-2 w-fit">
                 <div className="flex items-center gap-2">
-                  <button onClick= {() => {
-                    if(token) {
-                      decIngr(); 
-                    }
-                    navigate('/Taba2/auth/login')
-                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
-                  <span className="text-lg font-semibold">{ingredientsQty}</span>
-                  <button onClick= {() => {
-                    if(token) {
-                      incIngr(); 
-                    }
-                    navigate('/Taba2/auth/login')
-                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                  <button onClick= {handleDecIng}className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaMinus size={6} /></button>
+                  <span className="text-lg font-semibold">{CurrentOrder?.ingredients_quantity || 0}</span>
+                  <button onClick= {handleIncIng} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
                 </div>
                 <button
-                  onClick={() => {
-                    if(token){
-                      incRec();
-                    }
-                    navigate('/Taba2/auth/login')
-                  }}
+                  onClick={handleIncIng}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
                   <span>اطلب المقادير</span>
                   <span>|</span>
-                  <span>{ingredientsQty * item.price} ج.م</span>
+                  <span>{parseFloat(item.ingredients_cost).toFixed(2)} ج.م</span>
                 </button>
               </div>
 
               {/* زر الوصفة */}
               <div className="flex justify-between  gap-2">
                 <div className="flex items-center gap-2">
-                  <button onClick={() => {
-                    if (token) {
-                      decRec();
-                      dispatch(DeleteOneOrder({ token, id: item.id, q: 1 }));
-                    }
-                    navigate('/Taba2/auth/login')
-                  }} 
+                  <button onClick={handleDecRec}
                   className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs">
                   <FaMinus size={6} /></button>
-                  <span className="text-lg font-semibold">{recipeQty}</span>
-                  <button onClick= {() => {
-                    if(token) {
-                      incRec(); 
-                      dispatch(AddNewOrder({ token, id: item.id, q: 1 }))
-                    }
-                    navigate('/Taba2/auth/login')
-                  }} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
+                  <span className="text-lg font-semibold">{CurrentOrder?.recipe_quantity || "0"}</span>
+                  <button onClick= {handleIncRec} className="w-6 h-6 flex items-center justify-center rounded-full border border-zinc-300 bg-zinc-300 text-xs"><FaPlus size={6} /></button>
                 </div>
                 <button
-                  onClick={() => {
-                    if(token){
-                      incRec();
-                      dispatch(AddNewOrder({token, id: item.id, q:1}))
-                    }
-                    else{
-                      navigate('/Taba2/auth/login')
-                    }
-                  }}
+                  onClick={handleIncRec}
                   className="px-6 py-2 bg-[url(@/assets/images/Order_button_BG.png)] text-white rounded-full font-normal h-12 whitespace-nowrap flex flex-row-reverse gap-4 items-center"
                 >
                   <span>اطلب الوصفه</span>
                   <span>|</span>
-                  <span>{recipeQty * recipe.fullPrice} ج.م</span>
+                  <span>{item.price} ج.م</span>
                 </button>
               </div>
             </div>
@@ -161,7 +215,7 @@ function Recipe_Data({ recipe, addToOrder }) {
             {/* الترشيحات */}
             <div className="space-y-4 w-full">
               <p className="text-[20px] font-[700]">ترشيحات مع الوصفة</p>
-              <div className="flex flex-row w-full">
+              <div className="hidden md:grid md:grid-cols-1 gap-3 lg:grid-cols-2 w-full">
                 <Recipe_Extra />
                 <Recipe_Extra />
                 <Recipe_Extra />

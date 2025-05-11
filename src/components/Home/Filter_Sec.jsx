@@ -1,12 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Logo from '/Taba2/src/assets/Logo.svg?react';
 import { LuSettings2, LuChevronDown, LuX } from 'react-icons/lu';
 
-export default function Filter_Sec() {
+export default function Filter_Sec({
+  selectedCuisine,
+  setSelectedCuisine,
+  selectedMeal,
+  setSelectedMeal,
+}) {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [selectedCuisine, setSelectedCuisine] = useState(null);
-  const [selectedMeal, setSelectedMeal] = useState('جميع الوصفات');
   const wrapperRef = useRef(null);
+
+  const cuisines = ['غربي', 'شرقي'];
+  const meals = ['تحليه', 'عشاء', 'غداء', 'افطار', 'جميع الوصفات'];
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -18,21 +24,15 @@ export default function Filter_Sec() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const cuisines = ['وصفات شرقية', 'وصفات غربية'];
-  const meals = ['تحلية', 'عشاء', 'غداء', 'افطار', 'جميع الوصفات'];
-
   return (
     <div className="px-[10px] lg:px-[100px] mt-[32px]" ref={wrapperRef}>
-      {/* Header */}
       <div className="flex text-[20px]/[62px] font-semibold gap-2 justify-center items-center">
         <span>!! اليوم</span>
         <Logo className="w-[40px] h-[40px]" />
         <span>اختار</span>
       </div>
 
-      {/* Full screen layout */}
       <div className="text-[10px] text-black font-bold hidden lg:flex flex-wrap gap-2 justify-center items-center mt-[32px]">
-        {/* Clear selection button for cuisine */}
         {selectedCuisine && (
           <button
             onClick={() => setSelectedCuisine(null)}
@@ -41,17 +41,18 @@ export default function Filter_Sec() {
             <LuX className="w-4 h-4 text-black" />
           </button>
         )}
-        {/* Cuisine filters */}
+
         {cuisines.map((cuisine) => (
           <button
             key={cuisine}
-            onClick={() => setSelectedCuisine(selectedCuisine === cuisine ? null : cuisine)}
-            className={
-              `flex items-center whitespace-nowrap gap-2 px-[20px] py-[10px] rounded-full border-[1px] outline outline-1 outline-offset-[-1px] outline-zinc-400 transition ` +
-              (selectedCuisine === cuisine
-                ? 'bg-black text-white border-black'
-                : ' text-black border-transparent hover:bg-black hover:text-white')
+            onClick={() =>
+              setSelectedCuisine(selectedCuisine === cuisine ? null : cuisine)
             }
+            className={`flex items-center whitespace-nowrap gap-2 px-[20px] py-[10px] rounded-full border-[1px] outline outline-1 outline-offset-[-1px] outline-zinc-400 transition ${
+              selectedCuisine === cuisine
+                ? 'bg-black text-white border-black'
+                : 'text-black border-transparent hover:bg-black hover:text-white'
+            }`}
           >
             {cuisine}
           </button>
@@ -59,29 +60,27 @@ export default function Filter_Sec() {
 
         <div className="h-10 w-[1px] bg-[#B0B0B0]" />
 
-        {/* Meal type filters */}
         {meals.map((meal) => (
           <button
             key={meal}
             onClick={() => setSelectedMeal(meal)}
-            className={
-              `flex items-center gap-2 px-[40px] py-[10px] rounded-full border-[1px] outline outline-1 outline-offset-[-1px] outline-zinc-400 transition ` +
-              (selectedMeal === meal
+            className={`flex items-center gap-2 px-[40px] py-[10px] rounded-full border-[1px] outline outline-1 outline-offset-[-1px] outline-zinc-400 transition ${
+              selectedMeal === meal
                 ? 'bg-black text-white border-black'
-                : 'bg-transparent text-black border-transparent hover:bg-black hover:text-white')
-            }
+                : 'bg-transparent text-black border-transparent hover:bg-black hover:text-white'
+            }`}
           >
             {meal}
           </button>
         ))}
       </div>
 
-      {/* Small screen layout */}
       <div className="flex lg:hidden flex-row gap-4 justify-center items-center mt-[32px]">
-        {/* Cuisine Filter */}
         <div className="relative w-full max-w-xs">
           <button
-            onClick={() => setOpenDropdown(openDropdown === 'cuisine' ? null : 'cuisine')}
+            onClick={() =>
+              setOpenDropdown(openDropdown === 'cuisine' ? null : 'cuisine')
+            }
             className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border bg-white md:bg-[#E6E6E6] hover:bg-black hover:text-white transition"
           >
             <LuChevronDown className="w-4 h-4" />
@@ -90,7 +89,10 @@ export default function Filter_Sec() {
               {selectedCuisine || 'نوع المطبخ'}
               {selectedCuisine && (
                 <LuX
-                  onClick={(e) => { e.stopPropagation(); setSelectedCuisine(null); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCuisine(null);
+                  }}
                   className="w-4 h-4 cursor-pointer"
                 />
               )}
@@ -101,7 +103,10 @@ export default function Filter_Sec() {
               {cuisines.map((c) => (
                 <div
                   key={c}
-                  onClick={() => { setSelectedCuisine(c); setOpenDropdown(null); }}
+                  onClick={() => {
+                    setSelectedCuisine(c);
+                    setOpenDropdown(null);
+                  }}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
                   {c}
@@ -111,21 +116,25 @@ export default function Filter_Sec() {
           )}
         </div>
 
-        {/* Meal Type Filter */}
         <div className="relative w-full max-w-xs">
           <button
-            onClick={() => setOpenDropdown(openDropdown === 'meal' ? null : 'meal')}
+            onClick={() =>
+              setOpenDropdown(openDropdown === 'meal' ? null : 'meal')
+            }
             className="w-full flex items-center justify-between gap-2 px-4 py-2 rounded-full border md:bg-[#E6E6E6] bg-white hover:bg-black hover:text-white transition"
           >
             <LuChevronDown className="w-4 h-4" />
-            <span>{selectedMeal}</span>
+            <span>{selectedMeal || 'نوع الوجبة'}</span>
           </button>
           {openDropdown === 'meal' && (
-            <div className=" absolute mt-1 w-full bg-white border rounded shadow z-50">
+            <div className="absolute mt-1 w-full bg-white border rounded shadow z-50">
               {meals.map((m) => (
                 <div
                   key={m}
-                  onClick={() => { setSelectedMeal(m); setOpenDropdown(null); }}
+                  onClick={() => {
+                    setSelectedMeal(m);
+                    setOpenDropdown(null);
+                  }}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
                   {m}
@@ -138,3 +147,5 @@ export default function Filter_Sec() {
     </div>
   );
 }
+
+

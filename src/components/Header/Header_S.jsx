@@ -76,7 +76,7 @@ function Header_S() {
               <IoMdList />
             </button>
           }
-          <button className='bg-primary rounded-full p-3 hover:bg-[#F6B0B8]'>
+          <button className='bg-primary rounded-full p-3 hover:bg-[#F6B0B8]' onClick={() => navigate('/Taba2/cart')}>
             <SlHandbag />
           </button>
           {!isProfilePage.includes('Profile') &&

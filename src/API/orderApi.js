@@ -16,7 +16,22 @@ export const getAllOrders = async(token) =>{
   }
 }
 
-export const AddOrder = async({token, id, q}) =>{
+export const getOneOrder = async({token, id}) =>{
+  try{
+    if(token){
+      const response = await api(`orders/${id}`, {
+        headers:{
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      return response
+    }
+  }catch(e){
+    console.log('get orders failed', e.message)
+  }
+}
+
+export const AddOrder = async({token, id, Rq, Iq}) =>{
   try{
     const response = await api('orders', {
       method: 'post',
@@ -25,7 +40,8 @@ export const AddOrder = async({token, id, q}) =>{
       },
       body: {
         "recipe_id": id,
-        "quantity": q
+        "recipe_quantity": Rq,
+        "ingredients_quantity": Iq,
       }
     })
     return response
@@ -35,21 +51,37 @@ export const AddOrder = async({token, id, q}) =>{
 }
 
 
-export const DeleteOrder = async({token, id, q}) =>{
+export const DeleteOrder = async({token, id, Rq, Iq}) =>{
   try{
-    const response = await api(`orders`, {
+    const response = await api(`orders/${id}`, {
       method: 'Delete',
       headers:{
         Authorization: `Bearer ${token}`,
       },
       body: {
         "recipe_id": id,
-        "quantity": q
+        "recipe_quantity": Rq,
+        "ingredients_quantity": Iq,
       }
+    })
+    return response
+  }catch(e){
+    console.log('Delete orders failed', e.message)
+  }
+}
+
+
+export const UpdateOrder = async ({token, id, u}) =>{
+  try{
+    const response = await api(`orders/${id}`, {
+      method: 'Put',
+      headers:{
+        Authorization: `Bearer ${token}`,
+      },
+      body: u
     })
     return response
   }catch(e){
     console.log('get orders failed', e.message)
   }
 }
-

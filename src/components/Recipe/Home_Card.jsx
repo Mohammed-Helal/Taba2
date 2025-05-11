@@ -12,7 +12,7 @@ function Home_Card({ recipe }) {
     <div className="bg-[#F7F7F7] rounded-[15px] relative" dir='ltr'>
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40 rounded-[20px]"
-        style={{ backgroundImage: `url(${Card_bg})` }}
+        style={ { backgroundImage: `url(${Card_bg})` }}
       />
       
       <div className="p-[14px] flex flex-col justify-between gap-[24px] relative z-9 h-full min-h-[350px]">
@@ -37,7 +37,7 @@ function Home_Card({ recipe }) {
         <motion.button
           whileHover={{ backgroundColor: '#F6B0B8' }}
           className="w-full flex justify-between items-center bg-primary rounded-full pl-1.5 pr-3 py-1 text-white"
-          onClick={() => navigate(`recipe/${recipe.id}`)}
+          onClick={() => navigate(`/Taba2/recipe/${recipe.id}`)}
         >
           <span className="flex justify-center items-center w-7 h-7 bg-white rounded-full">
             <Btn_Card_i className="w-4 h-4" />
